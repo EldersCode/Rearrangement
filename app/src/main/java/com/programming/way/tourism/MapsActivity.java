@@ -24,14 +24,14 @@ public class MapsActivity extends HandlingMaps {
         // Boom Menu
 
         //Mibmab
-        int ImagesForTheMenu[] = new int[]{R.mipmap.gift, R.mipmap.stage};
-        int TextForMenu[] = new int[]{R.string.SearchForAnApartment_Menu, R.string.CreateEvent_Menu};
-        int HintTextForMenu[] = new int[]{R.string.SearchForAnApartmentHint_Menu, R.string.CreateEventHint_Menu};
+        int ImagesForTheMenu[] = new int[]{R.mipmap.gift, R.mipmap.stage,R.mipmap.user};
+        int TextForMenu[] = new int[]{R.string.SearchForAnApartment_Menu, R.string.CreateEvent_Menu,R.string.SetTheApartmentLocation};
+        int HintTextForMenu[] = new int[]{R.string.SearchForAnApartmentHint_Menu, R.string.CreateEventHint_Menu,R.string.SetTheApartmentLocation_hint};
 
         BoomMenuButton bmb = (BoomMenuButton) findViewById(R.id.bmb);
         bmb.setButtonEnum(ButtonEnum.Ham);
-        bmb.setPiecePlaceEnum(PiecePlaceEnum.HAM_2);
-        bmb.setButtonPlaceEnum(ButtonPlaceEnum.HAM_2);
+        bmb.setPiecePlaceEnum(PiecePlaceEnum.HAM_3);
+        bmb.setButtonPlaceEnum(ButtonPlaceEnum.HAM_3);
         for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
             HamButton.Builder builder = new HamButton.Builder().listener(new OnBMClickListener() {
                 @Override
