@@ -18,6 +18,7 @@ public class MapsActivity extends HandlingMaps {
         setContentView(R.layout.activity_maps);
 
         onCreateHandle();
+        Countries countriesN = new Countries();
 
 
         // Boom Menu
