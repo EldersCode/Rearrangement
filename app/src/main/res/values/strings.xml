@@ -29,4 +29,5 @@
     <string name="drawer_item_settings">Item Number 2</string>
     <string name="SetTheApartmentLocation">Get ApartmentLocation</string>
     <string name="SetTheApartmentLocation_hint">get location</string>
+    <string name="title_activity_places_auto_location">Map</string>
 </resources>

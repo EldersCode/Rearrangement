@@ -41,6 +41,9 @@ public class MapsActivity extends HandlingMaps {
                     }
                     else if(index == 1){
                         startActivity(new Intent(getApplicationContext() , EventsActivity.class));
+                    }else if(index == 2){
+                        startActivity(new Intent(getApplicationContext() , PlacesAutoLocation.class));
+
                     }
                 }
             })
