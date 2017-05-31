@@ -42,7 +42,7 @@ public class HandlingMaps extends FragmentActivity implements OnMapReadyCallback
         AsyncResponse,
         LocationListener{
 
-    private GoogleMap mMap;
+     GoogleMap mMap;
     GoogleApiClient mGoogleApiClient ;
     Location mLastLocation;
     Marker mCurrLocationMarker;

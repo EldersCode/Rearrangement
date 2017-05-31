@@ -35,45 +35,101 @@ public class EventsActivity extends AppCompatActivity {
         new DrawerBuilder().withActivity(this).build();
 
         //if you want to update the items at a later time it is recommended to keep it in a variable
+
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.drawer_item_home);
-        SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName(R.string.drawer_item_settings);
-        SecondaryDrawerItem items3 = new SecondaryDrawerItem().withIdentifier(3).withName("hi");
+        final SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName(R.string.drawer_item_settings);
+        final SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(3).withName("hi");
 
 
-        ProfileDrawerItem userInformation = new ProfileDrawerItem();
-        ProfileDrawerItem RentingCompanyOfTheUser = new ProfileDrawerItem();
 
-        AccountHeader headerResult = new AccountHeaderBuilder()
+        Drawer result = new DrawerBuilder()
                 .withActivity(this)
-                .withHeaderBackground(R.mipmap.banner)
-                .addProfiles(
-                        userInformation.withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(R.mipmap.user),
-                        RentingCompanyOfTheUser.withName("Morsy mohamed morsy").withEmail("morsysoker@hotmail.com").withIcon(R.mipmap.man)
+                .addDrawerItems(
+                        item1,
+                        new DividerDrawerItem(),
+                        item2,
+                        new SecondaryDrawerItem().withName(R.string.drawer_item_settings)
                 )
-
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-
-                        // close the drawar after header selection (return false to close)
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        // do something with the clicked item :D
                         return true;
                     }
                 })
-
                 .build();
+
+
+                ProfileDrawerItem userInformation = new ProfileDrawerItem();
+        ProfileDrawerItem RentingCompanyOfTheUser = new ProfileDrawerItem();
+
+        // Create the AccountHeader
+        AccountHeader headerResult = new AccountHeaderBuilder()
+                .withActivity(this)
+                .withHeaderBackground(R.mipmap.banner).build();
+
+
 
 //Now create your drawer and pass the AccountHeader.Result
-        new DrawerBuilder().withAccountHeader(headerResult).addDrawerItems(item2).withActivity(this)
+               final DrawerBuilder drawerBuilder = new DrawerBuilder().withAccountHeader(headerResult).addDrawerItems(item1).withActivity(this);
                 //additional Drawer setup as shown above
-                .build();
-       userInformation.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-           @Override
-           public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+               drawerBuilder.build();
 
-               return false;
-           }
-       });
+        headerResult.addProfiles(
+                userInformation.withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(R.mipmap.user).withSubItems(item2),
+                RentingCompanyOfTheUser.withName("Morsy mohamed morsy").withEmail("morsysoker@hotmail.com").withIcon(R.mipmap.man).withSubItems(item2)
+        )
+                ;
+
+
+
+
+//
+//        ProfileDrawerItem userInformation = new ProfileDrawerItem();
+//        ProfileDrawerItem RentingCompanyOfTheUser = new ProfileDrawerItem();
+//
+//
+//
+//        AccountHeader headerResult = new AccountHeaderBuilder()
+//                .withActivity(this)
+//                .withHeaderBackground(R.mipmap.banner)
+//                .addProfiles(
+//                        userInformation.withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(R.mipmap.user),
+//                        RentingCompanyOfTheUser.withName("Morsy mohamed morsy").withEmail("morsysoker@hotmail.com").withIcon(R.mipmap.man)
+//                )
+//
+//                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+//                    @Override
+//                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+//
+//                        // close the drawar after header selection (return false to close)
+//                        return true;
+//                    }
+//                })
+//
+//                .build();
+//
+////Now create your drawer and pass the AccountHeader.Result
+//        new DrawerBuilder().withAccountHeader(headerResult).withActivity(this).build();
+//
+//       final DrawerBuilder drawerBuilder = new DrawerBuilder().withAccountHeader(headerResult).addDrawerItems(item1).withActivity(this);
+//                //additional Drawer setup as shown above
+//               drawerBuilder.build();
+//
+//        drawerBuilder.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+//            @Override
+//            public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+//                switch (position) {
+//                    case 0:
+//                        drawerBuilder.addDrawerItems(item2).build();
+//                    case 1:
+//                        drawerBuilder.addDrawerItems(items3).build();
+//                }
+//                return true;
+//            }
+//        });
+//
+//    }
 
     }
-
 }

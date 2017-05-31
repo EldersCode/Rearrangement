@@ -3,6 +3,9 @@ package com.programming.way.tourism;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
@@ -41,6 +44,11 @@ public class MapsActivity extends HandlingMaps {
                     }
                     else if(index == 1){
                         startActivity(new Intent(getApplicationContext() , EventsActivity.class));
+                    }
+                    else if (index == 2){
+                        checkLocationPermission();
+                        LatLng latLng = new LatLng(mLastLocation.getLatitude() , mLastLocation.getLongitude());
+                        mMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker()));
                     }
                 }
             })
