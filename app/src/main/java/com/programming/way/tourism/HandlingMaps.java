@@ -42,7 +42,7 @@ public class HandlingMaps extends FragmentActivity implements OnMapReadyCallback
         AsyncResponse,
         LocationListener{
 
-    private GoogleMap mMap;
+     GoogleMap mMap;
     GoogleApiClient mGoogleApiClient ;
     Location mLastLocation;
     Marker mCurrLocationMarker;
@@ -59,6 +59,9 @@ public class HandlingMaps extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+
 
     }
 
@@ -83,6 +86,7 @@ public class HandlingMaps extends FragmentActivity implements OnMapReadyCallback
                     == PackageManager.PERMISSION_GRANTED) {
                 buildGoogleApiClient();
                 mMap.setMyLocationEnabled(true);
+
             }
         } else {
             buildGoogleApiClient();
@@ -95,7 +99,6 @@ public class HandlingMaps extends FragmentActivity implements OnMapReadyCallback
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                     new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), 12));
         }
-
 
     }
 

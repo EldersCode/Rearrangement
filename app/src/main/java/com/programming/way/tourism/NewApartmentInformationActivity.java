@@ -1,6 +1,8 @@
 package com.programming.way.tourism;
 
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class NewApartmentInformationActivity extends AppCompatActivity {
+public class NewApartmentInformationActivity extends AppCompatActivity implements LocationListener {
+
 
 
     private EditText priceEditText;
@@ -57,6 +60,7 @@ public class NewApartmentInformationActivity extends AppCompatActivity {
         NegotiablePriceSwitch=(Switch)findViewById(R.id.negotiablePriceSwitch);
 
 
+
         petsLayout.setVisibility(View.GONE);
 
         petsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -91,6 +95,10 @@ public class NewApartmentInformationActivity extends AppCompatActivity {
         locateFlat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                Intent intent = new Intent(getApplicationContext() , MapsActivity.class);
+
                 DatabaseReference users = database.getReference("users");
                 DatabaseReference regions = database.getReference("regions");
 
@@ -109,6 +117,7 @@ public class NewApartmentInformationActivity extends AppCompatActivity {
                 houses.child(flatsNo + "/houseIdNo/" + "location/").setValue("");
                 Toast.makeText(getApplicationContext(),"sending",Toast.LENGTH_LONG).show();
                 regions.child("contry/" + "city/" + flatsNo).setValue("location");
+                Toast.makeText(getApplicationContext() , "Data Sent Successfully .." , Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -120,4 +129,23 @@ public class NewApartmentInformationActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
 }
