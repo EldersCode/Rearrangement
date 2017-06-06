@@ -1,25 +1,24 @@
 package com.programming.way.tourism;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.widget.EditText;
-
-import com.google.android.gms.maps.GoogleMap;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.content.DialogInterface;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
 import com.nightonke.boommenu.Piece.PiecePlaceEnum;
-
-import java.security.spec.ECField;
 
 public class MapsActivity extends HandlingMaps {
 
@@ -60,7 +59,7 @@ public class MapsActivity extends HandlingMaps {
         bmb.setPiecePlaceEnum(PiecePlaceEnum.HAM_3);
         bmb.setButtonPlaceEnum(ButtonPlaceEnum.HAM_3);
         for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
-            HamButton.Builder builder = new HamButton.Builder().listener(new OnBMClickListener() {
+            final HamButton.Builder builder = new HamButton.Builder().listener(new OnBMClickListener() {
                 @Override
                 public void onBoomButtonClick(int index) {
                     if(index == 0){
@@ -69,7 +68,9 @@ public class MapsActivity extends HandlingMaps {
                     else if(index == 1){
                         startActivity(new Intent(getApplicationContext() , EventsActivity.class));
                     }else if(index == 2){
-
+                        //new user login
+                        CFirebaseAuth cFirebaseAuth=new CFirebaseAuth();
+                        cFirebaseAuth.CFirebaseAuth(MapsActivity.this);
                     }
                     else if (index == 2){
                         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
