@@ -43,7 +43,7 @@ public class CFirebaseAuth extends Activity {
 
         loginLayout = (LinearLayout)view.findViewById(R.id.login_id);
         registerLayout = (LinearLayout) view.findViewById(R.id.register_id);
-        Button login =(Button)view.findViewById(R.id.button);
+        final Button login =(Button)view.findViewById(R.id.button);
         Button register_btn = (Button) view.findViewById(R.id.Register);
         Button registerLoginBtn = (Button)view.findViewById(R.id.RegisterR);
         register_btn.setOnClickListener(new View.OnClickListener() {
@@ -53,19 +53,51 @@ public class CFirebaseAuth extends Activity {
                 registerLayout.setVisibility(View.VISIBLE);
 //                registerLayout.animate().y(0).setDuration(10000);
 
-                EditText userName=(EditText) view.findViewById(R.id.UsernameR);
-                EditText password=(EditText)view.findViewById(R.id.PasswordR);
-                EditText ConfPass = (EditText)view.findViewById(R.id.confirmPassR);
-                CFirebaseAuth auth=new CFirebaseAuth();
-                auth.signUpEmail(context,userName.getText().toString(),password.getText().toString() , ConfPass.getText().toString());
 
             }
         });
 
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                EditText emailLogin = (EditText)view.findViewById(R.id.Username);
+                EditText passwordLogin = (EditText)view.findViewById(R.id.Password);
+                String email = null;
+                String password = null;
+                if(emailLogin.getText().length() > 0 && passwordLogin.getText().length()>0){
+                    email =  emailLogin.getText().toString();
+                    password = passwordLogin.getText().toString();
+                    Login(context , email , password);
+               }else{
+                    Toast.makeText(context, "Please enter your full data !", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        
         registerLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                EditText userName=(EditText) view.findViewById(R.id.UsernameR);
+                EditText password=(EditText)view.findViewById(R.id.PasswordR);
+                EditText ConfPass = (EditText)view.findViewById(R.id.confirmPassR);
+
+                String email = null;
+                String pass = null;
+                if(userName.getText().length()>0 && password.getText().length()>0 && ConfPass.getText().length()>0 ) {
+                    email = userName.getText().toString();
+                    pass = password.getText().toString();
+                    String confirm = ConfPass.getText().toString();
+                    if (pass.equals(confirm)) {
+                        CFirebaseAuth auth = new CFirebaseAuth();
+                        auth.signUpEmail(context, email, pass);
+                    } else {
+                        Toast.makeText(context, "password and confirmation not matched !", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(context, "Please enter your full data !", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -91,10 +123,43 @@ public class CFirebaseAuth extends Activity {
         dialog.show();
 
     }
-    public void signUpEmail(final Context context, String email , String password , String confirmPass){
+    
+    public void Login(final Context context , String email , String password){
+
+        try{
+
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                Toast.makeText(context, "Login Succeeded", Toast.LENGTH_SHORT).show();
 
 
-        if(password.equals(confirmPass)) {
+                            } else {
+//                                    // If sign in fails, display a message to the user.
+//                                    Toast.makeText(context, "Login Authentication failed.",
+//                                            Toast.LENGTH_SHORT).show();
+                            }
+
+                            // ...
+                        }
+                    });
+
+        }catch (Exception e){
+            Toast.makeText(context, "Login failed !", Toast.LENGTH_SHORT).show();
+        }
+
+
+
+    }
+    
+    public void signUpEmail(final Context context, String email , String password){
+
+
+
             try {
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
@@ -120,9 +185,11 @@ public class CFirebaseAuth extends Activity {
             } catch (Exception e) {
                 Log.e("eeeeeeeeee", String.valueOf(e));
             }
-        }else{
-            Toast.makeText(getApplicationContext(), "Wrong password and confirmation !", Toast.LENGTH_SHORT).show();
-        }
+
+            
+
+
+
 //        EmailPasswordActivity.java
     }
 
@@ -155,6 +222,9 @@ public class CFirebaseAuth extends Activity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if (currentUser != null){
+//            alertBuilder.setCancelable(true);
+//        }
     }
 
 }
