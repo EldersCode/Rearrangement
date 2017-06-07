@@ -51,7 +51,7 @@ public class MapsActivity extends HandlingMaps {
         View bottomSheet = findViewById(R.id.bottom_sheet);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         // Boom Menu
-        bottomSheetBehavior.isHideable();
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         //Mibmab
         int ImagesForTheMenu[] = new int[]{R.mipmap.gift, R.mipmap.stage,R.mipmap.user,R.mipmap.user};
         int TextForMenu[] = new int[]{R.string.SearchForAnApartment_Menu, R.string.CreateEvent_Menu,R.string.SetTheApartmentLocation,R.string.SetTheApartmentLocation};

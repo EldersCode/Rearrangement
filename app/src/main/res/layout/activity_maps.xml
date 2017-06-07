@@ -17,15 +17,6 @@
         android:id="@+id/bmb"
         android:layout_width="100dp"
         android:layout_height="100dp"/>
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-
-
-    </android.support.design.widget.AppBarLayout>
-
 
     <include
         android:id="@+id/bottom_sheet"

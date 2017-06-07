@@ -10,6 +10,9 @@
     app:behavior_hideable="true"
     app:behavior_peekHeight="50dp"
     app:layout_behavior="@string/bottom_sheet_behavior"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+
     >
 
     <android.support.v7.widget.Toolbar
@@ -19,7 +22,6 @@
 
         <Button
             android:id="@+id/locateFlat"
-
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:text="@string/apartment_location_english"
@@ -63,6 +65,7 @@
                     android:layout_marginLeft="10dp"
                     android:ellipsize="end"
                     android:hint="@string/price"
+
                     android:inputType="number"
                     android:maxLines="1"
                     android:paddingLeft="10dp"
