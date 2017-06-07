@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:layout_height="match_parent"
+<android.support.design.widget.CoordinatorLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.programming.way.tourism.MapsActivity"
-    >
+    tools:context="com.programming.way.tourism.MapsActivity">
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -19,5 +17,5 @@
         android:layout_width="100dp"
         android:layout_height="100dp"/>
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
 

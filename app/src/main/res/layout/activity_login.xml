@@ -2,26 +2,98 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/login_id"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.programming.way.tourism.EventsActivity"
    android:orientation="vertical"
     >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/login_id"
+        android:orientation="vertical"
+        >
+
+        <EditText
+            android:id="@+id/Username"
+            android:layout_width="304dp"
+            android:layout_height="41dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:hint="Email"
+            android:layout_marginTop="70dp"        android:layout_centerHorizontal="true"
+            android:textColorHint="@color/colorAccent"
+            android:layout_above="@+id/Password"
+            android:layout_marginBottom="12dp" />
+        <EditText
+            android:id="@+id/Password"
+            android:layout_width="304dp"
+            android:layout_height="41dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:hint="Password"
+            android:textColorHint="@color/colorAccent"
+            android:layout_marginTop="15dp"
+            android:layout_centerVertical="true"
+            android:layout_alignStart="@+id/Username" />
+
+        <Button
+            android:id="@+id/button"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="304dp"
+            android:layout_height="41dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:background="#7c4b94e1"
+            android:gravity="center"
+            android:text="@string/login_btn"
+            android:textAllCaps="false"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fcfcfc"
+            android:textStyle="bold"
+            android:layout_below="@+id/Password"
+            />
+
+        <Button
+            android:id="@+id/Register"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="304dp"
+            android:layout_height="41dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="#7ce52561"
+            android:gravity="center"
+            android:text="@string/register_btn"
+            android:textAllCaps="false"
+            android:textColor="#fcfcfc"
+            android:textStyle="bold"
+            />
+
+    </LinearLayout>
+
+<LinearLayout
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/register_id"
+    android:visibility="gone"
+    >
+
     <EditText
-        android:id="@+id/Username"
+        android:id="@+id/UsernameR"
         android:layout_width="304dp"
         android:layout_height="41dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:hint="Username"
-android:layout_marginTop="70dp"        android:layout_centerHorizontal="true"
+        android:hint="Email"
+        android:layout_marginTop="70dp"        android:layout_centerHorizontal="true"
         android:textColorHint="@color/colorAccent"
         android:layout_above="@+id/Password"
         android:layout_marginBottom="12dp" />
     <EditText
-        android:id="@+id/Password"
+        android:id="@+id/PasswordR"
         android:layout_width="304dp"
         android:layout_height="41dp"
         android:layout_gravity="center"
@@ -30,27 +102,22 @@ android:layout_marginTop="70dp"        android:layout_centerHorizontal="true"
         android:textColorHint="@color/colorAccent"
         android:layout_marginTop="15dp"
         android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/Username" />
+        android:layout_alignStart="@+id/UsernameR" />
 
-    <Button
-        android:id="@+id/button"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+    <EditText
+        android:id="@+id/confirmPassR"
         android:layout_width="304dp"
         android:layout_height="41dp"
         android:layout_gravity="center"
-        android:layout_marginTop="60dp"
-        android:background="#7c4b94e1"
         android:gravity="center"
-        android:text="@string/login_btn"
-        android:textAllCaps="false"
-        android:layout_centerHorizontal="true"
-        android:textColor="#fcfcfc"
-        android:textStyle="bold"
-        android:layout_below="@+id/Password"
-        />
+        android:hint="Confirm Password"
+        android:textColorHint="@color/colorAccent"
+        android:layout_marginTop="15dp"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/PasswordR" />
 
     <Button
-        android:id="@+id/Register"
+        android:id="@+id/RegisterR"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="304dp"
         android:layout_height="41dp"
@@ -63,39 +130,8 @@ android:layout_marginTop="70dp"        android:layout_centerHorizontal="true"
         android:textColor="#fcfcfc"
         android:textStyle="bold"
         />
-<LinearLayout
-    android:gravity="center"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
 
 
-    <Button
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_below="@id/Register"
-        android:layout_marginTop="27dp"
-        android:id="@+id/myfacebook"
 
-        android:layout_marginLeft="30dp"
-        />
-
-    <Button
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_below="@id/Register"
-        android:layout_marginTop="27dp"
-        android:id="@+id/mygoogle"
-        android:layout_centerHorizontal="true"
-        />
-    <Button
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_below="@id/Register"
-        android:layout_marginTop="27dp"
-        android:id="@+id/mytwitter"
-        android:layout_marginRight="30dp"
-        android:layout_alignParentRight="true"
-        />
 </LinearLayout>
 </LinearLayout>

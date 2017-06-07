@@ -1,18 +1,22 @@
 package com.programming.way.tourism;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.dynamic.LifecycleDelegate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -26,7 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
  */
 
 public class CFirebaseAuth extends Activity {
-    private View view;
+    private View view , loginLayout , registerLayout;
     private FirebaseAuth mAuth= FirebaseAuth.getInstance();
 
     private AlertDialog.Builder alertBuilder;
@@ -37,14 +41,22 @@ public class CFirebaseAuth extends Activity {
 
 
 
+        loginLayout = (LinearLayout)view.findViewById(R.id.login_id);
+        registerLayout = (LinearLayout) view.findViewById(R.id.register_id);
         Button signUp =(Button)view.findViewById(R.id.button);
-        signUp.setOnClickListener(new View.OnClickListener() {
+        Button Register = (Button) view.findViewById(R.id.Register);
+        Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText userName=(EditText) view.findViewById(R.id.Username);
-                EditText password=(EditText)view.findViewById(R.id.Password);
-CFirebaseAuth auth=new CFirebaseAuth();
-               auth.signUpEmail(context,userName.getText().toString(),password.getText().toString());
+                loginLayout.setVisibility(View.GONE);
+                registerLayout.setVisibility(View.VISIBLE);
+//                registerLayout.animate().y(0).setDuration(10000);
+
+                EditText userName=(EditText) view.findViewById(R.id.UsernameR);
+                EditText password=(EditText)view.findViewById(R.id.PasswordR);
+                EditText ConfPass = (EditText)view.findViewById(R.id.confirmPassR);
+                CFirebaseAuth auth=new CFirebaseAuth();
+                auth.signUpEmail(context,userName.getText().toString(),password.getText().toString());
 
             }
         });
