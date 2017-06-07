@@ -149,7 +149,7 @@ public class CFirebaseAuth extends Activity {
                     });
 
         }catch (Exception e){
-            Toast.makeText(context, "Login failed !", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, "Login failed !", Toast.LENGTH_SHORT).show();
         }
 
 
