@@ -43,9 +43,10 @@ public class CFirebaseAuth extends Activity {
 
         loginLayout = (LinearLayout)view.findViewById(R.id.login_id);
         registerLayout = (LinearLayout) view.findViewById(R.id.register_id);
-        Button signUp =(Button)view.findViewById(R.id.button);
-        Button Register = (Button) view.findViewById(R.id.Register);
-        Register.setOnClickListener(new View.OnClickListener() {
+        Button login =(Button)view.findViewById(R.id.button);
+        Button register_btn = (Button) view.findViewById(R.id.Register);
+        Button registerLoginBtn = (Button)view.findViewById(R.id.RegisterR);
+        register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loginLayout.setVisibility(View.GONE);
@@ -60,6 +61,9 @@ public class CFirebaseAuth extends Activity {
 
             }
         });
+
+
+
         alertBuilder = new AlertDialog.Builder(context);
         alertBuilder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
             @Override
