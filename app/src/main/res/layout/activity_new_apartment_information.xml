@@ -7,7 +7,9 @@
     android:background="#efedd0"
     android:orientation="vertical"
     tools:context="com.programming.way.tourism.NewApartmentInformationActivity"
-
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="50dp"
+    app:layout_behavior="@string/bottom_sheet_behavior"
     >
 
     <android.support.v7.widget.Toolbar

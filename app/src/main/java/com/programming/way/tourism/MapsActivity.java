@@ -3,6 +3,7 @@ package com.programming.way.tourism;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.nightonke.boommenu.Piece.PiecePlaceEnum;
 
 public class MapsActivity extends HandlingMaps {
 
+    BottomSheetBehavior bottomSheetBehavior;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,24 +48,30 @@ public class MapsActivity extends HandlingMaps {
 
 
 
-
+        View bottomSheet = findViewById(R.id.bottom_sheet);
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         // Boom Menu
-
+        bottomSheetBehavior.isHideable();
         //Mibmab
-        int ImagesForTheMenu[] = new int[]{R.mipmap.gift, R.mipmap.stage,R.mipmap.user};
-        int TextForMenu[] = new int[]{R.string.SearchForAnApartment_Menu, R.string.CreateEvent_Menu,R.string.SetTheApartmentLocation};
-        int HintTextForMenu[] = new int[]{R.string.SearchForAnApartmentHint_Menu, R.string.CreateEventHint_Menu,R.string.SetTheApartmentLocation_hint};
+        int ImagesForTheMenu[] = new int[]{R.mipmap.gift, R.mipmap.stage,R.mipmap.user,R.mipmap.user};
+        int TextForMenu[] = new int[]{R.string.SearchForAnApartment_Menu, R.string.CreateEvent_Menu,R.string.SetTheApartmentLocation,R.string.SetTheApartmentLocation};
+        int HintTextForMenu[] = new int[]{R.string.SearchForAnApartmentHint_Menu, R.string.CreateEventHint_Menu,R.string.SetTheApartmentLocation_hint,R.string.SetTheApartmentLocation_hint};
 
         BoomMenuButton bmb = (BoomMenuButton) findViewById(R.id.bmb);
         bmb.setButtonEnum(ButtonEnum.Ham);
-        bmb.setPiecePlaceEnum(PiecePlaceEnum.HAM_3);
-        bmb.setButtonPlaceEnum(ButtonPlaceEnum.HAM_3);
+        bmb.setPiecePlaceEnum(PiecePlaceEnum.HAM_4);
+        bmb.setButtonPlaceEnum(ButtonPlaceEnum.HAM_4);
         for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
             final HamButton.Builder builder = new HamButton.Builder().listener(new OnBMClickListener() {
                 @Override
                 public void onBoomButtonClick(int index) {
                     if(index == 0){
                         startActivity(new Intent(getApplicationContext() , NewApartmentInformationActivity.class));
+                    }
+                    else if (index == 3)
+                    {
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
                     }
                     else if(index == 1){
                         startActivity(new Intent(getApplicationContext() , EventsActivity.class));
