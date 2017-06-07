@@ -30,6 +30,7 @@
     <string name="SetTheApartmentLocation">Get ApartmentLocation</string>
     <string name="SetTheApartmentLocation_hint">get location</string>
     <string name="title_activity_places_auto_location">Map</string>
-    <string name="login_btn">login</string>
-    <string name="register_btn">register</string>
+    <string name="login_btn">Login</string>
+    <string name="register_btn">Register</string>
+    <string name="registerLogin_btn"><![CDATA[Register & Login]]></string>
 </resources>

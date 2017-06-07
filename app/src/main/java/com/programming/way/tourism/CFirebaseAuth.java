@@ -1,18 +1,22 @@
 package com.programming.way.tourism;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.dynamic.LifecycleDelegate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -26,7 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
  */
 
 public class CFirebaseAuth extends Activity {
-    private View view;
+    private View view , loginLayout , registerLayout;
     private FirebaseAuth mAuth= FirebaseAuth.getInstance();
 
     private AlertDialog.Builder alertBuilder;
@@ -37,17 +41,35 @@ public class CFirebaseAuth extends Activity {
 
 
 
-        Button signUp =(Button)view.findViewById(R.id.button);
-        signUp.setOnClickListener(new View.OnClickListener() {
+        loginLayout = (LinearLayout)view.findViewById(R.id.login_id);
+        registerLayout = (LinearLayout) view.findViewById(R.id.register_id);
+        Button login =(Button)view.findViewById(R.id.button);
+        Button register_btn = (Button) view.findViewById(R.id.Register);
+        Button registerLoginBtn = (Button)view.findViewById(R.id.RegisterR);
+        register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText userName=(EditText) view.findViewById(R.id.Username);
-                EditText password=(EditText)view.findViewById(R.id.Password);
-CFirebaseAuth auth=new CFirebaseAuth();
-               auth.signUpEmail(context,userName.getText().toString(),password.getText().toString());
+                loginLayout.setVisibility(View.GONE);
+                registerLayout.setVisibility(View.VISIBLE);
+//                registerLayout.animate().y(0).setDuration(10000);
+
+                EditText userName=(EditText) view.findViewById(R.id.UsernameR);
+                EditText password=(EditText)view.findViewById(R.id.PasswordR);
+                EditText ConfPass = (EditText)view.findViewById(R.id.confirmPassR);
+                CFirebaseAuth auth=new CFirebaseAuth();
+                auth.signUpEmail(context,userName.getText().toString(),password.getText().toString() , ConfPass.getText().toString());
 
             }
         });
+
+        registerLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
         alertBuilder = new AlertDialog.Builder(context);
         alertBuilder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -69,31 +91,38 @@ CFirebaseAuth auth=new CFirebaseAuth();
         dialog.show();
 
     }
-    public void signUpEmail(final Context context, String email , String password){
+    public void signUpEmail(final Context context, String email , String password , String confirmPass){
 
 
-        try{
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
+        if(password.equals(confirmPass)) {
+            try {
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
 
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    FirebaseUser user = mAuth.getCurrentUser();
 ////                            updateUI(user);
-                            Toast.makeText(context, "Authentication Success",
-                                    Toast.LENGTH_SHORT).show();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(context, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Authentication Success",
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Toast.makeText(context, "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
 //                            updateUI(null);
-                        }
+                                }
 
-                        // ...
-                    }
-                });}catch (Exception e){Log.e("eeeeeeeeee", String.valueOf(e));}
+                                // ...
+                            }
+                        });
+            } catch (Exception e) {
+                Log.e("eeeeeeeeee", String.valueOf(e));
+            }
+        }else{
+            Toast.makeText(getApplicationContext(), "Wrong password and confirmation !", Toast.LENGTH_SHORT).show();
+        }
 //        EmailPasswordActivity.java
     }
 
