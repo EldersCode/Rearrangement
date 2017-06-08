@@ -59,7 +59,7 @@ public class MapsActivity extends HandlingMaps {
         View bottomSheet1 = findViewById(R.id.bottom_sheet1);
         View bottomSheet = findViewById(R.id.bottom_sheet);
 
-        FabBtn = findViewById(R.id.fab);
+        //FabBtn = findViewById(R.id.fab);
 
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
