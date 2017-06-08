@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#efedd0"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="50dp"
+    app:layout_behavior="@string/bottom_sheet_behavior"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content"
+        >
+
+        <Button
+            android:id="@+id/button1234"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:drawableBottom="@mipmap/gift"
+            />
+        <Button
+            android:id="@+id/button12345"
+            android:layout_marginLeft="60dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:drawableBottom="@mipmap/house"
+            />
+
+
+    </LinearLayout>
+
+</LinearLayout>
