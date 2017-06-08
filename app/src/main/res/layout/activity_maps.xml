@@ -18,9 +18,15 @@
         android:layout_width="100dp"
         android:layout_height="100dp"/>
 
+
+    <include
+        android:id="@+id/bottom_sheet1"
+        layout="@layout/buttomsheet"
+        />
     <include
         android:id="@+id/bottom_sheet"
         layout="@layout/activity_new_apartment_information"/>
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -29,6 +35,9 @@
         android:src="@android:drawable/ic_dialog_email"
         app:layout_anchor="@id/bottom_sheet"
         app:layout_anchorGravity="top|right|end" />
+
+
+
 
 </android.support.design.widget.CoordinatorLayout>
 

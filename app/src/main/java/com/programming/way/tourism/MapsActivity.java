@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.content.DialogInterface;
+import android.widget.Button;
+
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -24,7 +26,11 @@ import com.nightonke.boommenu.Piece.PiecePlaceEnum;
 
 public class MapsActivity extends HandlingMaps {
 
+
     BottomSheetBehavior bottomSheetBehavior;
+    BottomSheetBehavior bottomSheetBehavior1;
+    Button TheButtonInTheFirstButtonSheet;
+    View FabBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,11 +54,20 @@ public class MapsActivity extends HandlingMaps {
         }
 
 
-
+        TheButtonInTheFirstButtonSheet = (Button)findViewById(R.id.button1234) ;
+        // Buttom Sheet
+        View bottomSheet1 = findViewById(R.id.bottom_sheet1);
         View bottomSheet = findViewById(R.id.bottom_sheet);
+
+        FabBtn = findViewById(R.id.fab);
+
+
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        // Boom Menu
+        bottomSheetBehavior1 = BottomSheetBehavior.from(bottomSheet1);
+
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
+       // Boom Menu
         //Mibmab
         int ImagesForTheMenu[] = new int[]{R.mipmap.gift, R.mipmap.stage,R.mipmap.user,R.mipmap.user};
         int TextForMenu[] = new int[]{R.string.SearchForAnApartment_Menu, R.string.CreateEvent_Menu,R.string.SetTheApartmentLocation,R.string.SetTheApartmentLocation};
@@ -71,7 +86,17 @@ public class MapsActivity extends HandlingMaps {
                     }
                     else if (index == 3)
                     {
-                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+
+                        TheButtonInTheFirstButtonSheet.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
+
+                                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                            }
+                        });
 
                     }
                     else if(index == 1){
@@ -82,7 +107,7 @@ public class MapsActivity extends HandlingMaps {
                         cFirebaseAuth.CFirebaseAuth(MapsActivity.this);
                     }
                     else if (index == 2){
-                        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             checkLocationPermission();
                         }
 
