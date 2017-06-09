@@ -2,6 +2,7 @@ package com.programming.way.tourism;
 
 import android.animation.Animator;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
@@ -31,15 +32,24 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class CFirebaseAuth extends Activity {
     private View view , loginLayout , registerLayout;
-    private FirebaseAuth mAuth= FirebaseAuth.getInstance();
 
+    AlertDialog dialog;
     private AlertDialog.Builder alertBuilder;
+    ProgressDialog progressD ;
+
+    // Check if user is signed in (non-null) and update UI accordingly.
+
+        private FirebaseAuth mAuth= FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+
 
     public void CFirebaseAuth(final Context context){
 
         view = LayoutInflater.from(context).inflate(R.layout.activity_login, null, true);
+        alertBuilder= new AlertDialog.Builder(context);
 
-
+        if(currentUser == null ) {
 
         loginLayout = (LinearLayout)view.findViewById(R.id.login_id);
         registerLayout = (LinearLayout) view.findViewById(R.id.register_id);
@@ -61,7 +71,8 @@ public class CFirebaseAuth extends Activity {
             @Override
             public void onClick(View v) {
 
-                EditText emailLogin = (EditText)view.findViewById(R.id.Username);
+
+                    EditText emailLogin = (EditText)view.findViewById(R.id.Username);
                 EditText passwordLogin = (EditText)view.findViewById(R.id.Password);
                 String email = null;
                 String password = null;
@@ -72,7 +83,10 @@ public class CFirebaseAuth extends Activity {
                }else{
                     Toast.makeText(context, "Please enter your full data !", Toast.LENGTH_SHORT).show();
                 }
-            }
+
+
+
+        }
         });
         
         registerLoginBtn.setOnClickListener(new View.OnClickListener() {
@@ -90,8 +104,7 @@ public class CFirebaseAuth extends Activity {
                     pass = password.getText().toString();
                     String confirm = ConfPass.getText().toString();
                     if (pass.equals(confirm)) {
-                        CFirebaseAuth auth = new CFirebaseAuth();
-                        auth.signUpEmail(context, email, pass);
+                        signUpEmail(context, email, pass);
                     } else {
                         Toast.makeText(context, "password and confirmation not matched !", Toast.LENGTH_SHORT).show();
                     }
@@ -102,7 +115,6 @@ public class CFirebaseAuth extends Activity {
         });
 
 
-        alertBuilder = new AlertDialog.Builder(context);
         alertBuilder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -118,40 +130,52 @@ public class CFirebaseAuth extends Activity {
             }
         });
         alertBuilder.setView(view);
-        AlertDialog dialog = alertBuilder.create();
+         dialog = alertBuilder.create();
 
         dialog.show();
+
+        }else if(currentUser != null){
+            AfterLogin(context);
+        }
 
     }
     
     public void Login(final Context context , String email , String password){
 
-        try{
+            try {
 
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                Toast.makeText(context, "Login Succeeded", Toast.LENGTH_SHORT).show();
+                progressD = new ProgressDialog(context);
+                progressD.setMessage("Logging in ...");
+                progressD.show();
+
+                mAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    progressD.dismiss();
+                                    dialog.dismiss();
+                                    Toast.makeText(context, "Login Succeeded", Toast.LENGTH_SHORT).show();
+                                    //here we go to the next action
+                                    AfterLogin(context);
 
 
-                            } else {
+                                } else {
 //                                    // If sign in fails, display a message to the user.
-//                                    Toast.makeText(context, "Login Authentication failed.",
-//                                            Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Login Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+                                    progressD.dismiss();
+                                }
+
+                                // ...
                             }
+                        });
 
-                            // ...
-                        }
-                    });
-
-        }catch (Exception e){
+            } catch (Exception e) {
 //            Toast.makeText(context, "Login failed !", Toast.LENGTH_SHORT).show();
-        }
-
+            }
 
 
     }
@@ -169,14 +193,13 @@ public class CFirebaseAuth extends Activity {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     FirebaseUser user = mAuth.getCurrentUser();
-////                            updateUI(user);
                                     Toast.makeText(context, "Authentication Success",
                                             Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Toast.makeText(context, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
                                 }
 
                                 // ...
@@ -225,6 +248,10 @@ public class CFirebaseAuth extends Activity {
 //        if (currentUser != null){
 //            alertBuilder.setCancelable(true);
 //        }
+    }
+
+    public void AfterLogin(Context context){
+        Toast.makeText(context, "a7la mesa 3leek enta tmam", Toast.LENGTH_SHORT).show();
     }
 
 }

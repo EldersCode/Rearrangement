@@ -19,6 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@android:drawable/ic_dialog_email"
+
          />
 
     <include
@@ -29,6 +30,13 @@
         android:id="@+id/bottom_sheet"
         layout="@layout/activity_new_apartment_information"/>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/logout"
+        android:layout_gravity="right"
+        />
 
     <com.nightonke.boommenu.BoomMenuButton
         android:id="@+id/bmb"
