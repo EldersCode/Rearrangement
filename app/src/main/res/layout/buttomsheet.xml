@@ -4,62 +4,77 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#efedd0"
+    android:background="#00555555"
     app:behavior_hideable="true"
-    app:behavior_peekHeight="50dp"
     app:layout_behavior="@string/bottom_sheet_behavior"
     android:focusable="true"
     android:focusableInTouchMode="true">
 
+    <HorizontalScrollView
+        android:id="@+id/horizontalScroll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:layout_marginRight="20dp"
+        android:scrollbars="none">
+
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="20dp"
         android:layout_height="wrap_content"
         >
 
-        <Button
-            android:id="@+id/button1234"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/house"
-            />
-        <Button
-            android:id="@+id/button12345"
-            android:layout_marginLeft="60dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-           android:background="@mipmap/gift"
-            />
 
 
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_height="wrap_content"
-        >
-
         <Button
-            android:id="@+id/button123456"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/house"
+            android:id="@+id/HomeButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@mipmap/home"
             />
         <Button
-            android:id="@+id/button1234547"
-            android:layout_marginLeft="60dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/StoreButton"
+            android:layout_marginLeft="20dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+           android:background="@mipmap/store"
+
+            />
+
+        <Button
+            android:id="@+id/BeachHouseButton"
+            android:layout_marginLeft="20dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@mipmap/beachhouse"
+            />
+        <Button
+            android:id="@+id/CityScapeButton"
+            android:layout_marginLeft="20dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@mipmap/cityscape"
+            />
+        <Button
+            android:id="@+id/WeddingHallButton"
+            android:layout_marginLeft="20dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@mipmap/couple"
+            />
+        <Button
+            android:id="@+id/button1234564"
+            android:layout_marginLeft="20dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:background="@mipmap/gift"
             />
 
-
     </LinearLayout>
+
+    </HorizontalScrollView>
 
 </LinearLayout>

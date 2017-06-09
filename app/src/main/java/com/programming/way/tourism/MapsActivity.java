@@ -54,7 +54,7 @@ public class MapsActivity extends HandlingMaps {
         }
 
 
-        TheButtonInTheFirstButtonSheet = (Button)findViewById(R.id.button1234) ;
+        TheButtonInTheFirstButtonSheet = (Button)findViewById(R.id.HomeButton) ;
         // Buttom Sheet
         View bottomSheet1 = findViewById(R.id.bottom_sheet1);
         View bottomSheet = findViewById(R.id.bottom_sheet);

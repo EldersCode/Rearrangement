@@ -34,7 +34,7 @@
         android:id="@+id/bmb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_anchor="@id/bottom_sheet"
+        app:layout_anchor="@id/bottom_sheet1"
         app:layout_anchorGravity="top|right|end" />
 
 
