@@ -33,4 +33,6 @@
     <string name="login_btn">Login</string>
     <string name="register_btn">Register</string>
     <string name="registerLogin_btn"><![CDATA[Register & Login]]></string>
+    <string name="iamIn">i am in the location</string>
+    <string name="iamOut">this\'s not my estate location</string>
 </resources>
