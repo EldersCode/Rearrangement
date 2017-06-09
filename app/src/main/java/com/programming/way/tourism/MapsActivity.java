@@ -1,8 +1,11 @@
 package com.programming.way.tourism;
 
 import android.content.Intent;
+import android.hardware.Camera;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.content.DialogInterface;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -26,16 +30,21 @@ import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
 import com.nightonke.boommenu.Piece.PiecePlaceEnum;
 
+import java.io.File;
+import java.io.IOException;
+
 public class MapsActivity extends HandlingMaps {
 
 
     private FirebaseAuth mAuth;
-
+    int count =0;
+    final static int TAKE_PHOTO_CODE = 100;
     BottomSheetBehavior bottomSheetBehavior;
     BottomSheetBehavior bottomSheetBehavior1;
     Button TheButtonInTheFirstButtonSheet;
     View FabBtn;
     FloatingActionButton logoutFab;
+    private ImageView cameraImg;
 
 
     @Override
@@ -46,6 +55,15 @@ public class MapsActivity extends HandlingMaps {
         onCreateHandle();
 //        Countries countriesN = new Countries();
 
+        cameraImg = (ImageView) findViewById(R.id.camImg);
+        cameraImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//                startActivity(new Intent( MediaStore.ACTION_IMAGE_CAPTURE));
+
+            }
+        });
 
 // ...
         mAuth = FirebaseAuth.getInstance();
@@ -106,11 +124,14 @@ public class MapsActivity extends HandlingMaps {
         int HintTextForMenu[] = new int[]{R.string.SearchForAnApartmentHint_Menu, R.string.CreateEventHint_Menu,R.string.SetTheApartmentLocation_hint,R.string.SetTheApartmentLocation_hint};
 
         BoomMenuButton bmb = (BoomMenuButton) findViewById(R.id.bmb);
+
         bmb.setButtonEnum(ButtonEnum.Ham);
         bmb.setPiecePlaceEnum(PiecePlaceEnum.HAM_4);
         bmb.setButtonPlaceEnum(ButtonPlaceEnum.HAM_4);
         for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
             final HamButton.Builder builder = new HamButton.Builder().listener(new OnBMClickListener() {
+
+
                 @Override
                 public void onBoomButtonClick(int index) {
                     if(index == 0){
@@ -129,6 +150,7 @@ public class MapsActivity extends HandlingMaps {
                                 bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
 
                                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
                             }
                         });
 
@@ -203,6 +225,10 @@ public class MapsActivity extends HandlingMaps {
 //        }
 //
 //    }
+
+
+
+
 
 
 }
