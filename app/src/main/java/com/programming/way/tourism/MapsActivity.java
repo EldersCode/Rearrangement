@@ -135,7 +135,9 @@ public class MapsActivity extends HandlingMaps {
                 @Override
                 public void onBoomButtonClick(int index) {
                     if(index == 0){
-                        startActivity(new Intent(getApplicationContext() , NewApartmentInformationActivity.class));
+/////////////////////////////////////////////////////
+                        FindLocatinDialog dialog=new FindLocatinDialog();
+                        dialog.FindLocatinDialog(MapsActivity.this);
                     }
                     else if (index == 3)
                     {
