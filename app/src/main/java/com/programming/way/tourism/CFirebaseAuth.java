@@ -36,6 +36,8 @@ public class CFirebaseAuth extends Activity {
     AlertDialog dialog;
     private AlertDialog.Builder alertBuilder;
     ProgressDialog progressD ;
+    String email = null;
+    String pass = null;
 
     // Check if user is signed in (non-null) and update UI accordingly.
 
@@ -48,6 +50,8 @@ public class CFirebaseAuth extends Activity {
 
         view = LayoutInflater.from(context).inflate(R.layout.activity_login, null, true);
         alertBuilder= new AlertDialog.Builder(context);
+
+
 
         if(currentUser == null ) {
 
@@ -71,21 +75,21 @@ public class CFirebaseAuth extends Activity {
             @Override
             public void onClick(View v) {
 
-
-                    EditText emailLogin = (EditText)view.findViewById(R.id.Username);
-                EditText passwordLogin = (EditText)view.findViewById(R.id.Password);
-                String email = null;
-                String password = null;
-                if(emailLogin.getText().length() > 0 && passwordLogin.getText().length()>0){
-                    email =  emailLogin.getText().toString();
-                    password = passwordLogin.getText().toString();
-                    Login(context , email , password);
-               }else{
-                    Toast.makeText(context, "Please enter your full data !", Toast.LENGTH_SHORT).show();
-                }
+                mAuth= FirebaseAuth.getInstance();
+                currentUser = mAuth.getCurrentUser();
 
 
-
+                    EditText emailLogin = (EditText) view.findViewById(R.id.Username);
+                    EditText passwordLogin = (EditText) view.findViewById(R.id.Password);
+                    email = null;
+                    pass = null;
+                    if (emailLogin.getText().length() > 0 && passwordLogin.getText().length() > 0) {
+                        email = emailLogin.getText().toString();
+                        pass = passwordLogin.getText().toString();
+                        Login(context, email, pass);
+                    } else {
+                        Toast.makeText(context, "Please enter your full data !", Toast.LENGTH_SHORT).show();
+                    }
         }
         });
         
@@ -97,8 +101,8 @@ public class CFirebaseAuth extends Activity {
                 EditText password=(EditText)view.findViewById(R.id.PasswordR);
                 EditText ConfPass = (EditText)view.findViewById(R.id.confirmPassR);
 
-                String email = null;
-                String pass = null;
+                 email = null;
+                 pass = null;
                 if(userName.getText().length()>0 && password.getText().length()>0 && ConfPass.getText().length()>0 ) {
                     email = userName.getText().toString();
                     pass = password.getText().toString();
@@ -135,7 +139,17 @@ public class CFirebaseAuth extends Activity {
         dialog.show();
 
         }else if(currentUser != null){
-            AfterLogin(context);
+
+            mAuth= FirebaseAuth.getInstance();
+            currentUser = mAuth.getCurrentUser();
+              if(currentUser.isEmailVerified()){
+
+                AfterLogin(context);
+
+            }else if (!currentUser.isEmailVerified()){
+                Toast.makeText(context, "Please verify your email first !", Toast.LENGTH_SHORT).show();
+            }
+
         }
 
     }
@@ -153,13 +167,20 @@ public class CFirebaseAuth extends Activity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    progressD.dismiss();
-                                    dialog.dismiss();
-                                    Toast.makeText(context, "Login Succeeded", Toast.LENGTH_SHORT).show();
-                                    //here we go to the next action
-                                    AfterLogin(context);
+                                    mAuth= FirebaseAuth.getInstance();
+                                    currentUser = mAuth.getCurrentUser();
+                                    if(currentUser.isEmailVerified()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        progressD.dismiss();
+                                        dialog.dismiss();
+                                        Toast.makeText(context, "Login Succeeded", Toast.LENGTH_SHORT).show();
+                                        //here we go to the next action
+                                        AfterLogin(context);
+                                    }else{
+                                        progressD.dismiss();
+                                        Toast.makeText(context, "Please Verify your email first !", Toast.LENGTH_SHORT).show();
+                                    }
+
 
 
                                 } else {
@@ -178,7 +199,10 @@ public class CFirebaseAuth extends Activity {
             }
 
 
+
     }
+
+
     
     public void signUpEmail(final Context context, String email , String password){
 
@@ -196,6 +220,12 @@ public class CFirebaseAuth extends Activity {
                                     Toast.makeText(context, "Authentication Success",
                                             Toast.LENGTH_SHORT).show();
                                     dialog.dismiss();
+                                    currentUser = mAuth.getCurrentUser();
+
+
+                                    VerifyEmail(currentUser , context);
+                                    mAuth.signOut();
+
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Toast.makeText(context, "Authentication failed.",
@@ -213,33 +243,9 @@ public class CFirebaseAuth extends Activity {
 
 
 
-//        EmailPasswordActivity.java
     }
 
-//    public void AuthAnonymously(){
-//    mAuth = FirebaseAuth.getInstance();
-//
-//    mAuth.signInAnonymously()
-//            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                @Override
-//                public void onComplete(@NonNull Task<AuthResult> task) {
-//                    if (task.isSuccessful()) {
-//                        // Sign in success, update UI with the signed-in user's information
-//                        Log.d(TAG, "signInAnonymously:success");
-//                        FirebaseUser user = mAuth.getCurrentUser();
-////                        updateUI(user);
-//                    } else {
-//                        // If sign in fails, display a message to the user.
-//                        Log.w(TAG, "signInAnonymously:failure", task.getException());
-//                        Toast.makeText(getApplicationContext(), "Authentication failed.",
-//                                Toast.LENGTH_SHORT).show();
-////                        updateUI(null);
-//                    }
 
-                    // ...
-//                }
-//            });
-//}
     @Override
     public void onStart() {
         super.onStart();
@@ -252,6 +258,20 @@ public class CFirebaseAuth extends Activity {
 
     public void AfterLogin(Context context){
         Toast.makeText(context, "a7la mesa 3leek enta tmam", Toast.LENGTH_SHORT).show();
+    }
+
+    public void VerifyEmail(FirebaseUser user , final Context context){
+        user.sendEmailVerification()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+
+                            Toast.makeText(context, "Verification sent", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                });
     }
 
 }
