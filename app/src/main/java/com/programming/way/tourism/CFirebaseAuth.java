@@ -36,6 +36,8 @@ public class CFirebaseAuth extends Activity {
     AlertDialog dialog;
     private AlertDialog.Builder alertBuilder;
     ProgressDialog progressD ;
+    String email = null;
+    String pass = null;
 
     // Check if user is signed in (non-null) and update UI accordingly.
 
@@ -79,19 +81,15 @@ public class CFirebaseAuth extends Activity {
 
                     EditText emailLogin = (EditText) view.findViewById(R.id.Username);
                     EditText passwordLogin = (EditText) view.findViewById(R.id.Password);
-                    String email = null;
-                    String password = null;
+                    email = null;
+                    pass = null;
                     if (emailLogin.getText().length() > 0 && passwordLogin.getText().length() > 0) {
                         email = emailLogin.getText().toString();
-                        password = passwordLogin.getText().toString();
-                        Login(context, email, password);
+                        pass = passwordLogin.getText().toString();
+                        Login(context, email, pass);
                     } else {
                         Toast.makeText(context, "Please enter your full data !", Toast.LENGTH_SHORT).show();
                     }
-
-
-
-
         }
         });
         
@@ -103,8 +101,8 @@ public class CFirebaseAuth extends Activity {
                 EditText password=(EditText)view.findViewById(R.id.PasswordR);
                 EditText ConfPass = (EditText)view.findViewById(R.id.confirmPassR);
 
-                String email = null;
-                String pass = null;
+                 email = null;
+                 pass = null;
                 if(userName.getText().length()>0 && password.getText().length()>0 && ConfPass.getText().length()>0 ) {
                     email = userName.getText().toString();
                     pass = password.getText().toString();
@@ -141,13 +139,18 @@ public class CFirebaseAuth extends Activity {
         dialog.show();
 
         }else if(currentUser != null){
-                AfterLogin(context);
-           /* if(currentUser.isEmailVerified()) {
 
-            }else if (!currentUser.isEmailVerified()){
-                VerifyEmail(currentUser , context);
+            mAuth= FirebaseAuth.getInstance();
+            currentUser = mAuth.getCurrentUser();
+             if (!currentUser.isEmailVerified()){
                 Toast.makeText(context, "Please verify your email first !", Toast.LENGTH_SHORT).show();
-            }*/
+                 mAuth.signOut();
+                 LoginAgain(context , email , pass);
+            }else if(currentUser.isEmailVerified()){
+
+                AfterLogin(context);
+
+            }
 
         }
 
@@ -196,6 +199,47 @@ public class CFirebaseAuth extends Activity {
             } catch (Exception e) {
 //            Toast.makeText(context, "Login failed !", Toast.LENGTH_SHORT).show();
             }
+
+
+
+    }
+
+    public void LoginAgain(final Context context , String email , String password){
+
+        try {
+
+
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                mAuth= FirebaseAuth.getInstance();
+                                currentUser = mAuth.getCurrentUser();
+                                if(currentUser.isEmailVerified()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Toast.makeText(context, "Login Succeeded", Toast.LENGTH_SHORT).show();
+                                    //here we go to the next action
+                                    AfterLogin(context);
+                                }else{
+                                    Toast.makeText(context, "Please Verify your email first !", Toast.LENGTH_SHORT).show();
+                                }
+
+
+
+                            } else {
+//                                    // If sign in fails, display a message to the user.
+                                Toast.makeText(context, "Login Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+
+                            // ...
+                        }
+                    });
+
+        } catch (Exception e) {
+//            Toast.makeText(context, "Login failed !", Toast.LENGTH_SHORT).show();
+        }
 
 
 
