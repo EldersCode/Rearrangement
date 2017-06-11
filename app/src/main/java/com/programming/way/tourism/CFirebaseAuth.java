@@ -142,14 +142,12 @@ public class CFirebaseAuth extends Activity {
 
             mAuth= FirebaseAuth.getInstance();
             currentUser = mAuth.getCurrentUser();
-             if (!currentUser.isEmailVerified()){
-                Toast.makeText(context, "Please verify your email first !", Toast.LENGTH_SHORT).show();
-                 mAuth.signOut();
-                 LoginAgain(context , email , pass);
-            }else if(currentUser.isEmailVerified()){
+              if(currentUser.isEmailVerified()){
 
                 AfterLogin(context);
 
+            }else if (!currentUser.isEmailVerified()){
+                Toast.makeText(context, "Please verify your email first !", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -204,46 +202,7 @@ public class CFirebaseAuth extends Activity {
 
     }
 
-    public void LoginAgain(final Context context , String email , String password){
 
-        try {
-
-
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                mAuth= FirebaseAuth.getInstance();
-                                currentUser = mAuth.getCurrentUser();
-                                if(currentUser.isEmailVerified()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Toast.makeText(context, "Login Succeeded", Toast.LENGTH_SHORT).show();
-                                    //here we go to the next action
-                                    AfterLogin(context);
-                                }else{
-                                    Toast.makeText(context, "Please Verify your email first !", Toast.LENGTH_SHORT).show();
-                                }
-
-
-
-                            } else {
-//                                    // If sign in fails, display a message to the user.
-                                Toast.makeText(context, "Login Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-
-                            // ...
-                        }
-                    });
-
-        } catch (Exception e) {
-//            Toast.makeText(context, "Login failed !", Toast.LENGTH_SHORT).show();
-        }
-
-
-
-    }
     
     public void signUpEmail(final Context context, String email , String password){
 
@@ -265,6 +224,7 @@ public class CFirebaseAuth extends Activity {
 
 
                                     VerifyEmail(currentUser , context);
+                                    mAuth.signOut();
 
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -283,33 +243,9 @@ public class CFirebaseAuth extends Activity {
 
 
 
-//        EmailPasswordActivity.java
     }
 
-//    public void AuthAnonymously(){
-//    mAuth = FirebaseAuth.getInstance();
-//
-//    mAuth.signInAnonymously()
-//            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                @Override
-//                public void onComplete(@NonNull Task<AuthResult> task) {
-//                    if (task.isSuccessful()) {
-//                        // Sign in success, update UI with the signed-in user's information
-//                        Log.d(TAG, "signInAnonymously:success");
-//                        FirebaseUser user = mAuth.getCurrentUser();
-////                        updateUI(user);
-//                    } else {
-//                        // If sign in fails, display a message to the user.
-//                        Log.w(TAG, "signInAnonymously:failure", task.getException());
-//                        Toast.makeText(getApplicationContext(), "Authentication failed.",
-//                                Toast.LENGTH_SHORT).show();
-////                        updateUI(null);
-//                    }
 
-                    // ...
-//                }
-//            });
-//}
     @Override
     public void onStart() {
         super.onStart();
