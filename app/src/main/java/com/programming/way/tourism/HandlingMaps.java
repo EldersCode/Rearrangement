@@ -47,6 +47,8 @@ public class HandlingMaps extends FragmentActivity implements OnMapReadyCallback
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
+    SupportMapFragment  mapFragment ;
+
 
     void onCreateHandle(){
         buildGoogleApiClient();
@@ -56,7 +58,7 @@ public class HandlingMaps extends FragmentActivity implements OnMapReadyCallback
             checkLocationPermission();
         }
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -99,6 +101,7 @@ public class HandlingMaps extends FragmentActivity implements OnMapReadyCallback
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                     new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), 12));
         }
+
 
     }
 

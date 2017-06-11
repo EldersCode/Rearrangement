@@ -257,6 +257,7 @@ public class CFirebaseAuth extends Activity {
     }
 
     public void AfterLogin(Context context){
+        FindLocatinDialog findLocatinDialog = new FindLocatinDialog(context );
         Toast.makeText(context, "a7la mesa 3leek enta tmam", Toast.LENGTH_SHORT).show();
     }
 

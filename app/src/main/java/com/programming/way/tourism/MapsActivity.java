@@ -37,7 +37,7 @@ public class MapsActivity extends HandlingMaps {
 
 
     private FirebaseAuth mAuth;
-    int count =0;
+    int count = 0;
     final static int TAKE_PHOTO_CODE = 100;
     BottomSheetBehavior bottomSheetBehavior;
     BottomSheetBehavior bottomSheetBehavior1;
@@ -69,42 +69,40 @@ public class MapsActivity extends HandlingMaps {
         mAuth = FirebaseAuth.getInstance();
 
 
+
         try {
             Bundle bundle = getIntent().getExtras();
-            if(bundle != null) {
+            if (bundle != null) {
                 String markerTitle = bundle.getString("price");
                 Double lat = bundle.getDouble("lat");
                 Double lng = bundle.getDouble("lng");
-                mMap.addMarker(new MarkerOptions().title(markerTitle).position(new LatLng(lat , lng)).icon(BitmapDescriptorFactory
+                mMap.addMarker(new MarkerOptions().title(markerTitle).position(new LatLng(lat, lng)).icon(BitmapDescriptorFactory
                         .defaultMarker()));
                 Log.i("price in maps", markerTitle);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
-        logoutFab = (FloatingActionButton)findViewById(R.id.fabLogout);
+        logoutFab = (FloatingActionButton) findViewById(R.id.fabLogout);
         logoutFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if (currentUser != null){
-            mAuth.signOut();
-            Toast.makeText(MapsActivity.this, "You have signed out successfully ..", Toast.LENGTH_SHORT).show();
+                if (currentUser != null) {
+                    mAuth.signOut();
+                    Toast.makeText(MapsActivity.this, "You have signed out successfully ..", Toast.LENGTH_SHORT).show();
 
-        }
-        else if (currentUser == null){
-            Toast.makeText(MapsActivity.this, "You haven't logged in ..", Toast.LENGTH_SHORT).show();
-        }
+                } else if (currentUser == null) {
+                    Toast.makeText(MapsActivity.this, "You haven't logged in ..", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
 
 
-
-
-        TheButtonInTheFirstButtonSheet = (Button)findViewById(R.id.HomeButton) ;
+        TheButtonInTheFirstButtonSheet = (Button) findViewById(R.id.HomeButton);
         // Buttom Sheet
         View bottomSheet1 = findViewById(R.id.bottom_sheet1);
         View bottomSheet = findViewById(R.id.bottom_sheet);
@@ -117,11 +115,11 @@ public class MapsActivity extends HandlingMaps {
 
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
-       // Boom Menu
+        // Boom Menu
         //Mibmab
-        int ImagesForTheMenu[] = new int[]{R.mipmap.gift, R.mipmap.stage,R.mipmap.user,R.mipmap.user};
-        int TextForMenu[] = new int[]{R.string.SearchForAnApartment_Menu, R.string.CreateEvent_Menu,R.string.SetTheApartmentLocation,R.string.SetTheApartmentLocation};
-        int HintTextForMenu[] = new int[]{R.string.SearchForAnApartmentHint_Menu, R.string.CreateEventHint_Menu,R.string.SetTheApartmentLocation_hint,R.string.SetTheApartmentLocation_hint};
+        int ImagesForTheMenu[] = new int[]{R.mipmap.gift, R.mipmap.stage, R.mipmap.user, R.mipmap.user};
+        int TextForMenu[] = new int[]{R.string.SearchForAnApartment_Menu, R.string.CreateEvent_Menu, R.string.SetTheApartmentLocation, R.string.SetTheApartmentLocation};
+        int HintTextForMenu[] = new int[]{R.string.SearchForAnApartmentHint_Menu, R.string.CreateEventHint_Menu, R.string.SetTheApartmentLocation_hint, R.string.SetTheApartmentLocation_hint};
 
         BoomMenuButton bmb = (BoomMenuButton) findViewById(R.id.bmb);
 
@@ -134,13 +132,11 @@ public class MapsActivity extends HandlingMaps {
 
                 @Override
                 public void onBoomButtonClick(int index) {
-                    if(index == 0){
+                    if (index == 0) {
 /////////////////////////////////////////////////////
-                        FindLocatinDialog dialog=new FindLocatinDialog();
-                        dialog.FindLocatinDialog(MapsActivity.this);
-                    }
-                    else if (index == 3)
-                    {
+                        /*FindLocatinDialog dialog=new FindLocatinDialog();
+                        dialog.FindLocatinDialog(MapsActivity.this);*/
+                    } else if (index == 3) {
                         bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_EXPANDED);
 
 
@@ -154,45 +150,14 @@ public class MapsActivity extends HandlingMaps {
                             }
                         });
 
-                    }
-                    else if(index == 1){
-                        startActivity(new Intent(getApplicationContext() , EventsActivity.class));
-                    }else if(index == 2){
+                    } else if (index == 1) {
+                        startActivity(new Intent(getApplicationContext(), EventsActivity.class));
+                    } else if (index == 2) {
                         //new user login
-                        CFirebaseAuth cFirebaseAuth=new CFirebaseAuth();
+                        CFirebaseAuth cFirebaseAuth = new CFirebaseAuth();
                         cFirebaseAuth.CFirebaseAuth(MapsActivity.this);
                     }
-//                    else if (index == 2){
-//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                            checkLocationPermission();
-//                        }
-//
-//
-//                        final AlertDialog.Builder alert = new AlertDialog.Builder(MapsActivity.this)
-//                                .setMessage("Is your appartment here ? (When you click yes you'll continue adding details)");
-//
-//                                alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        LatLng latLng = new LatLng(mLastLocation.getLatitude() , mLastLocation.getLongitude());
-//                                        mMap.addMarker(new MarkerOptions().position(latLng).title("apartment").icon(BitmapDescriptorFactory.defaultMarker()));
-//
-//                                    }
-//                                })
-//                                .setNegativeButton("no", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        alert.setCancelable(true);
-//                                    }
-//                                })
-//                                .create().show();
-//
-//
-//
-//
-//
-//
-//                    }
+
                 }
             })
 
@@ -205,30 +170,9 @@ public class MapsActivity extends HandlingMaps {
         }
 
 
-
         //
 
 
     }
-
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//         FirebaseAuth mAuth;
-//// ...
-//        mAuth = FirebaseAuth.getInstance();
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//
-//        if (currentUser != null){
-//
-//        }
-//
-//    }
-
-
-
-
-
 
 }
