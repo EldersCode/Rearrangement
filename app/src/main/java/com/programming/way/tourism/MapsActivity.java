@@ -160,7 +160,7 @@ public class MapsActivity extends HandlingMaps {
                         Alerter.create(MapsActivity.this)
                                 .setTitle("Alert Title")
                                 .setText("Alert text...")
-                                .setIcon(R.drawable.alerter_ic_notifications)
+//                                .setIcon(R.drawable.common_google_signin_btn_icon_light_normal_background)
                                 .setBackgroundColor(R.color.md_green_900)
                                 .show();
                     }else if(index == 2){
