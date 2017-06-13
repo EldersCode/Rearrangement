@@ -1,7 +1,11 @@
 package com.programming.way.tourism;
 
+import android.content.Context;
 import android.content.Intent;
 import android.hardware.Camera;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,18 +33,15 @@ import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
 import com.nightonke.boommenu.Piece.PiecePlaceEnum;
-import com.tapadoo.alerter.Alerter;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
 
 public class MapsActivity extends HandlingMaps {
 
-private Random random = new Random();
 
     private FirebaseAuth mAuth;
-    int count =0;
+    int count = 0;
     final static int TAKE_PHOTO_CODE = 100;
     BottomSheetBehavior bottomSheetBehavior;
     BottomSheetBehavior bottomSheetBehavior1;
@@ -59,96 +60,142 @@ private Random random = new Random();
 //        Countries countriesN = new Countries();
 
         cameraImg = (ImageView) findViewById(R.id.camImg);
-        new buttomSheetsManeger(MapsActivity.this,cameraImg);
-
-//        cameraImg.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-////                startActivity(new Intent( MediaStore.ACTION_IMAGE_CAPTURE));
-//
-//            }
-//        });
-
-// ...
-        mAuth = FirebaseAuth.getInstance();
-
-
-        try {
-            Bundle bundle = getIntent().getExtras();
-            if(bundle != null) {
-                String markerTitle = bundle.getString("price");
-                Double lat = bundle.getDouble("lat");
-                Double lng = bundle.getDouble("lng");
-                mMap.addMarker(new MarkerOptions().title(markerTitle).position(new LatLng(lat , lng)).icon(BitmapDescriptorFactory
-                        .defaultMarker()));
-                Log.i("price in maps", markerTitle);
-            }
-        }catch (Exception e){
-
-        }
-
-        logoutFab = (FloatingActionButton)findViewById(R.id.fabLogout);
-        logoutFab.setOnClickListener(new View.OnClickListener() {
+        cameraImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if (currentUser != null){
-            mAuth.signOut();
-            new MorsyToast(MapsActivity.this,"","You have signed out successfully ..",random.nextInt(6));
-//            Toast.makeText(MapsActivity.this, "You have signed out successfully ..", Toast.LENGTH_SHORT).show();
-
-        }
-        else if (currentUser == null){
-            new MorsyToast(MapsActivity.this,"","You haven't logged in ..",random.nextInt(6));
-
-//            Toast.makeText(MapsActivity.this, "You haven't logged in ..", Toast.LENGTH_SHORT).show();
-        }
+//                startActivity(new Intent( MediaStore.ACTION_IMAGE_CAPTURE));
 
             }
         });
 
 
+// ...
+        mAuth = FirebaseAuth.getInstance();
 
 
-        TheButtonInTheFirstButtonSheet = (Button)findViewById(R.id.HomeButton) ;
+
+        try {
+            Bundle bundle = getIntent().getExtras();
+            if (bundle != null) {
+                String markerTitle = bundle.getString("price");
+                Double lat = bundle.getDouble("lat");
+                Double lng = bundle.getDouble("lng");
+                mMap.addMarker(new MarkerOptions().title(markerTitle).position(new LatLng(lat, lng)).icon(BitmapDescriptorFactory
+                        .defaultMarker()));
+                Log.i("price in maps", markerTitle);
+            }
+        } catch (Exception e) {
+
+        }
+
+        logoutFab = (FloatingActionButton) findViewById(R.id.fabLogout);
+        logoutFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+
+                if (currentUser != null) {
+                    mAuth.signOut();
+                    Toast.makeText(MapsActivity.this, "You have signed out successfully ..", Toast.LENGTH_SHORT).show();
+
+                } else if (currentUser == null) {
+                    Toast.makeText(MapsActivity.this, "You haven't logged in ..", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+        TheButtonInTheFirstButtonSheet = (Button) findViewById(R.id.HomeButton);
         // Buttom Sheet
         View bottomSheet1 = findViewById(R.id.bottom_sheet1);
         View bottomSheet = findViewById(R.id.bottom_sheet);
-        BoomMenuButton bmb = (BoomMenuButton) findViewById(R.id.bmb);
 
-        new buttomSheetsManeger(MapsActivity.this,bottomSheet1,bottomSheet,TheButtonInTheFirstButtonSheet ,bmb );
         //FabBtn = findViewById(R.id.fab);
 
 
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        bottomSheetBehavior1 = BottomSheetBehavior.from(bottomSheet1);
+
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
+        // Boom Menu
+        //Mibmab
+        int ImagesForTheMenu[] = new int[]{R.mipmap.gift, R.mipmap.stage, R.mipmap.user, R.mipmap.user};
+        int TextForMenu[] = new int[]{R.string.SearchForAnApartment_Menu, R.string.CreateEvent_Menu, R.string.SetTheApartmentLocation, R.string.SetTheApartmentLocation};
+        int HintTextForMenu[] = new int[]{R.string.SearchForAnApartmentHint_Menu, R.string.CreateEventHint_Menu, R.string.SetTheApartmentLocation_hint, R.string.SetTheApartmentLocation_hint};
+
+        BoomMenuButton bmb = (BoomMenuButton) findViewById(R.id.bmb);
+
+        bmb.setButtonEnum(ButtonEnum.Ham);
+        bmb.setPiecePlaceEnum(PiecePlaceEnum.HAM_4);
+        bmb.setButtonPlaceEnum(ButtonPlaceEnum.HAM_4);
+        for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
+            final HamButton.Builder builder = new HamButton.Builder().listener(new OnBMClickListener() {
 
 
+                @Override
+                public void onBoomButtonClick(int index) {
+                    if (index == 0) {
+/////////////////////////////////////////////////////
+                        /*FindLocatinDialog dialog=new FindLocatinDialog();
+                        dialog.FindLocatinDialog(MapsActivity.this);*/
+                    } else if (index == 3) {
+                        bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+
+                        TheButtonInTheFirstButtonSheet.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
+
+                                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+                            }
+                        });
+
+
+
+                    } else if (index == 1) {
+                        startActivity(new Intent(getApplicationContext(), EventsActivity.class));
+                    } else if (index == 2) {
+                        //new user login
+                        final CFirebaseAuth cFirebaseAuth = new CFirebaseAuth();
+                        cFirebaseAuth.CFirebaseAuth(MapsActivity.this);
+                        checkLocationPermission();
+                        if(cFirebaseAuth.currentUser != null){
+                            final FindLocatinDialog findLocatinDialog = new FindLocatinDialog(MapsActivity.this );
+                            findLocatinDialog.here_btn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    LatLng latLng = new LatLng(mLastLocation.getLatitude() , mLastLocation.getLongitude());
+                                    mMap.addMarker(new MarkerOptions().position(latLng).title("here"));
+                                    findLocatinDialog.dialog.dismiss();
+                                }
+                            });
+                        }
+                        else if (cFirebaseAuth.currentUser == null){
+                            Toast.makeText(getApplicationContext(), "please login first ..", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                }
+            })
+
+                    .normalImageRes(ImagesForTheMenu[i])
+                    .normalTextRes(TextForMenu[i])
+                    .subNormalTextRes(HintTextForMenu[i]);
+
+
+            bmb.addBuilder(builder);
+        }
 
 
         //
 
 
     }
-
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//         FirebaseAuth mAuth;
-//// ...
-//        mAuth = FirebaseAuth.getInstance();
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//
-//        if (currentUser != null){
-//
-//        }
-//
-//    }
-
-
-
-
-
 
 }
