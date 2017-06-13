@@ -47,7 +47,6 @@ public class FindLocatinDialog extends AppCompatActivity {
         here_btn = (Button) view.findViewById(R.id.here);
         notHere_btn = (Button) view.findViewById(R.id.notHere);
 
-
         here_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
