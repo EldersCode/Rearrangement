@@ -30,7 +30,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:background="@mipmap/house"
+                android:background="@mipmap/home"
                 android:id="@+id/camImg"
                 android:layout_gravity="center_horizontal"/>
 

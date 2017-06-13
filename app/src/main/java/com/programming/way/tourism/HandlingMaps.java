@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import com.google.android.gms.location.LocationListener;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -104,9 +105,6 @@ public class HandlingMaps extends FragmentActivity implements OnMapReadyCallback
 
 
     }
-
-
-
 
     @Override
     public void onLocationChanged(Location location) {
@@ -230,10 +228,7 @@ public class HandlingMaps extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        finishAffinity();
-    }
+
 
     @Override
     public void processFinish(String output) {
