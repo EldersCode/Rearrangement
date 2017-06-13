@@ -59,14 +59,16 @@ private Random random = new Random();
 //        Countries countriesN = new Countries();
 
         cameraImg = (ImageView) findViewById(R.id.camImg);
-        cameraImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        new buttomSheetsManeger(MapsActivity.this,cameraImg);
 
-//                startActivity(new Intent( MediaStore.ACTION_IMAGE_CAPTURE));
-
-            }
-        });
+//        cameraImg.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+////                startActivity(new Intent( MediaStore.ACTION_IMAGE_CAPTURE));
+//
+//            }
+//        });
 
 // ...
         mAuth = FirebaseAuth.getInstance();
@@ -114,106 +116,13 @@ private Random random = new Random();
         // Buttom Sheet
         View bottomSheet1 = findViewById(R.id.bottom_sheet1);
         View bottomSheet = findViewById(R.id.bottom_sheet);
+        BoomMenuButton bmb = (BoomMenuButton) findViewById(R.id.bmb);
 
+        new buttomSheetsManeger(MapsActivity.this,bottomSheet1,bottomSheet,TheButtonInTheFirstButtonSheet ,bmb );
         //FabBtn = findViewById(R.id.fab);
 
 
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        bottomSheetBehavior1 = BottomSheetBehavior.from(bottomSheet1);
 
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-        bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
-       // Boom Menu
-        //Mibmab
-        int ImagesForTheMenu[] = new int[]{R.mipmap.gift, R.mipmap.stage,R.mipmap.user,R.mipmap.user};
-        int TextForMenu[] = new int[]{R.string.SearchForAnApartment_Menu, R.string.CreateEvent_Menu,R.string.SetTheApartmentLocation,R.string.SetTheApartmentLocation};
-        int HintTextForMenu[] = new int[]{R.string.SearchForAnApartmentHint_Menu, R.string.CreateEventHint_Menu,R.string.SetTheApartmentLocation_hint,R.string.SetTheApartmentLocation_hint};
-
-        BoomMenuButton bmb = (BoomMenuButton) findViewById(R.id.bmb);
-
-        bmb.setButtonEnum(ButtonEnum.Ham);
-        bmb.setPiecePlaceEnum(PiecePlaceEnum.HAM_4);
-        bmb.setButtonPlaceEnum(ButtonPlaceEnum.HAM_4);
-        for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
-            final HamButton.Builder builder = new HamButton.Builder().listener(new OnBMClickListener() {
-
-
-                @Override
-                public void onBoomButtonClick(int index) {
-                    if(index == 0){
-/////////////////////////////////////////////////////
-                        FindLocatinDialog dialog=new FindLocatinDialog(MapsActivity.this);
-                        //dialog.FindLocatinDialog(MapsActivity.this);
-                    }
-                    else if (index == 3)
-                    {
-                        bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_EXPANDED);
-
-
-                        TheButtonInTheFirstButtonSheet.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
-
-                                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-
-                            }
-                        });
-
-                    }
-                    else if(index == 1){
-
-                        new MorsyToast(MapsActivity.this,"events","set or search for events",random.nextInt(6));
-
-
-                    }else if(index == 2){
-                        new MorsyToast(MapsActivity.this,"m4 3arf lesa","faydet om el buttom da a allah a3lam ",random.nextInt(6));
-
-                        //new user login
-                        CFirebaseAuth cFirebaseAuth=new CFirebaseAuth();
-                        cFirebaseAuth.CFirebaseAuth(MapsActivity.this);
-                    }
-//                    else if (index == 2){
-//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                            checkLocationPermission();
-//                        }
-//
-//
-//                        final AlertDialog.Builder alert = new AlertDialog.Builder(MapsActivity.this)
-//                                .setMessage("Is your appartment here ? (When you click yes you'll continue adding details)");
-//
-//                                alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        LatLng latLng = new LatLng(mLastLocation.getLatitude() , mLastLocation.getLongitude());
-//                                        mMap.addMarker(new MarkerOptions().position(latLng).title("apartment").icon(BitmapDescriptorFactory.defaultMarker()));
-//
-//                                    }
-//                                })
-//                                .setNegativeButton("no", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        alert.setCancelable(true);
-//                                    }
-//                                })
-//                                .create().show();
-//
-//
-//
-//
-//
-//
-//                    }
-                }
-            })
-
-                    .normalImageRes(ImagesForTheMenu[i])
-                    .normalTextRes(TextForMenu[i])
-                    .subNormalTextRes(HintTextForMenu[i]);
-
-
-            bmb.addBuilder(builder);
-        }
 
 
 
