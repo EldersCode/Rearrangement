@@ -228,10 +228,7 @@ public class HandlingMaps extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        finishAffinity();
-    }
+
 
     @Override
     public void processFinish(String output) {

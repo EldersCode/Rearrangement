@@ -29,6 +29,7 @@ public class MapsActivity extends HandlingMaps {
 
 
     private FirebaseAuth mAuth;
+    LatLng latLng;
     int count = 0;
     final static int TAKE_PHOTO_CODE = 100;
     BottomSheetBehavior bottomSheetBehavior;
@@ -132,20 +133,6 @@ public class MapsActivity extends HandlingMaps {
                         /*FindLocatinDialog dialog=new FindLocatinDialog();
                         dialog.FindLocatinDialog(MapsActivity.this);*/
                     } else if (index == 3) {
-                        bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_EXPANDED);
-
-
-                        TheButtonInTheFirstButtonSheet.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
-
-                                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-
-                            }
-                        });
-
-
 
                     } else if (index == 1) {
                         startActivity(new Intent(getApplicationContext(), EventsActivity.class));
@@ -162,12 +149,31 @@ public class MapsActivity extends HandlingMaps {
                                     public void onClick(View v) {
                                          try {
                                              // Call your Alert message
-                                             LatLng latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+                                              latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
                                              mMap.addMarker(new MarkerOptions().position(latLng).title("here"));
                                              findLocatinDialog.dialog.dismiss();
                                          }catch (Exception e){
                                              Toast.makeText(getApplicationContext(), "Please open your GPS to get Location ..", Toast.LENGTH_SHORT).show();
 
+                                         }
+                                         if(mMap != null){
+                                             bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+
+                                             TheButtonInTheFirstButtonSheet.setOnClickListener(new View.OnClickListener() {
+                                                 @Override
+                                                 public void onClick(View view) {
+                                                     bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
+
+                                                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                                                     mMap.clear();
+                                                     mMap.addMarker(new MarkerOptions().position(latLng).title("here").icon(
+                                                             BitmapDescriptorFactory.fromResource(R.mipmap.house)
+                                                     ));
+
+
+                                                 }
+                                             });
                                          }
                                     }
                                 });
@@ -193,6 +199,17 @@ public class MapsActivity extends HandlingMaps {
         //
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        }
+
+        else{
+        finishAffinity();
+    }
     }
 
 }
