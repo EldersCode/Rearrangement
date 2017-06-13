@@ -29,6 +29,7 @@ import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
 import com.nightonke.boommenu.Piece.PiecePlaceEnum;
+import com.tapadoo.alerter.Alerter;
 
 import java.io.File;
 import java.io.IOException;
@@ -156,7 +157,11 @@ public class MapsActivity extends HandlingMaps {
 
                     }
                     else if(index == 1){
-                        startActivity(new Intent(getApplicationContext() , EventsActivity.class));
+                        Alerter.create(MapsActivity.this)
+                                .setTitle("Alert Title")
+                                .setText("Alert text...")
+                                .setBackgroundColor(R.color.md_green_100)
+                                .show();
                     }else if(index == 2){
                         //new user login
                         CFirebaseAuth cFirebaseAuth=new CFirebaseAuth();
