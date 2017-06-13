@@ -1,7 +1,10 @@
 package com.programming.way.tourism;
 
+import android.*;
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.location.Location;
 import android.location.LocationListener;
@@ -12,6 +15,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -58,6 +62,8 @@ public class MapsActivity extends HandlingMaps {
 
         onCreateHandle();
 //        Countries countriesN = new Countries();
+
+
 
         cameraImg = (ImageView) findViewById(R.id.camImg);
         cameraImg.setOnClickListener(new View.OnClickListener() {
@@ -164,17 +170,24 @@ public class MapsActivity extends HandlingMaps {
                         final CFirebaseAuth cFirebaseAuth = new CFirebaseAuth();
                         cFirebaseAuth.CFirebaseAuth(MapsActivity.this);
                         checkLocationPermission();
-                        if(cFirebaseAuth.currentUser != null){
-                            final FindLocatinDialog findLocatinDialog = new FindLocatinDialog(MapsActivity.this );
-                            findLocatinDialog.here_btn.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
+                        if(cFirebaseAuth.currentUser != null) {
 
-                                    LatLng latLng = new LatLng(mLastLocation.getLatitude() , mLastLocation.getLongitude());
-                                    mMap.addMarker(new MarkerOptions().position(latLng).title("here"));
-                                    findLocatinDialog.dialog.dismiss();
-                                }
-                            });
+                                final FindLocatinDialog findLocatinDialog = new FindLocatinDialog(MapsActivity.this);
+                                findLocatinDialog.here_btn.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                         try {
+                                             // Call your Alert message
+                                             LatLng latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+                                             mMap.addMarker(new MarkerOptions().position(latLng).title("here"));
+                                             findLocatinDialog.dialog.dismiss();
+                                         }catch (Exception e){
+                                             Toast.makeText(getApplicationContext(), "Please open your GPS to get Location ..", Toast.LENGTH_SHORT).show();
+  
+                                         }
+                                    }
+                                });
+
                         }
                         else if (cFirebaseAuth.currentUser == null){
                             Toast.makeText(getApplicationContext(), "please login first ..", Toast.LENGTH_SHORT).show();
