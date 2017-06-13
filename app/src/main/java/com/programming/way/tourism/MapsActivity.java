@@ -3,6 +3,7 @@ package com.programming.way.tourism;
 import android.content.Intent;
 import android.hardware.Camera;
 import android.net.Uri;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -23,16 +24,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum;
-import com.nightonke.boommenu.BoomButtons.HamButton;
-import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
-import com.nightonke.boommenu.BoomMenuButton;
-import com.nightonke.boommenu.ButtonEnum;
-import com.nightonke.boommenu.Piece.PiecePlaceEnum;
-import com.tapadoo.alerter.Alerter;
 
-import java.io.File;
-import java.io.IOException;
+import com.nightonke.boommenu.BoomMenuButton;
+
 import java.util.Random;
 
 public class MapsActivity extends HandlingMaps {
@@ -40,12 +34,8 @@ public class MapsActivity extends HandlingMaps {
 private Random random = new Random();
 
     private FirebaseAuth mAuth;
-    int count =0;
-    final static int TAKE_PHOTO_CODE = 100;
-    BottomSheetBehavior bottomSheetBehavior;
-    BottomSheetBehavior bottomSheetBehavior1;
+
     Button TheButtonInTheFirstButtonSheet;
-    View FabBtn;
     FloatingActionButton logoutFab;
     private ImageView cameraImg;
 
@@ -56,21 +46,11 @@ private Random random = new Random();
         setContentView(R.layout.activity_maps);
 
         onCreateHandle();
-//        Countries countriesN = new Countries();
 
         cameraImg = (ImageView) findViewById(R.id.camImg);
         new buttomSheetsManeger(MapsActivity.this,cameraImg);
 
-//        cameraImg.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-////                startActivity(new Intent( MediaStore.ACTION_IMAGE_CAPTURE));
-//
-//            }
-//        });
 
-// ...
         mAuth = FirebaseAuth.getInstance();
 
 
@@ -118,7 +98,7 @@ private Random random = new Random();
         View bottomSheet = findViewById(R.id.bottom_sheet);
         BoomMenuButton bmb = (BoomMenuButton) findViewById(R.id.bmb);
 
-        new buttomSheetsManeger(MapsActivity.this,bottomSheet1,bottomSheet,TheButtonInTheFirstButtonSheet ,bmb );
+            new buttomSheetsManeger(MapsActivity.this,bottomSheet1,bottomSheet,TheButtonInTheFirstButtonSheet ,bmb );
         //FabBtn = findViewById(R.id.fab);
 
 
@@ -130,22 +110,6 @@ private Random random = new Random();
 
 
     }
-
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//         FirebaseAuth mAuth;
-//// ...
-//        mAuth = FirebaseAuth.getInstance();
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//
-//        if (currentUser != null){
-//
-//        }
-//
-//    }
-
 
 
 
