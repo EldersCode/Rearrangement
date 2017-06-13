@@ -94,11 +94,14 @@ private Random random = new Random();
 
         if (currentUser != null){
             mAuth.signOut();
-            Toast.makeText(MapsActivity.this, "You have signed out successfully ..", Toast.LENGTH_SHORT).show();
+            new MorsyToast(MapsActivity.this,"","You have signed out successfully ..",random.nextInt(6));
+//            Toast.makeText(MapsActivity.this, "You have signed out successfully ..", Toast.LENGTH_SHORT).show();
 
         }
         else if (currentUser == null){
-            Toast.makeText(MapsActivity.this, "You haven't logged in ..", Toast.LENGTH_SHORT).show();
+            new MorsyToast(MapsActivity.this,"","You haven't logged in ..",random.nextInt(6));
+
+//            Toast.makeText(MapsActivity.this, "You haven't logged in ..", Toast.LENGTH_SHORT).show();
         }
 
             }
