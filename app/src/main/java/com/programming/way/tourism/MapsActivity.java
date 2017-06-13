@@ -154,8 +154,24 @@ public class MapsActivity extends HandlingMaps {
                         startActivity(new Intent(getApplicationContext(), EventsActivity.class));
                     } else if (index == 2) {
                         //new user login
-                        CFirebaseAuth cFirebaseAuth = new CFirebaseAuth();
+                        final CFirebaseAuth cFirebaseAuth = new CFirebaseAuth();
                         cFirebaseAuth.CFirebaseAuth(MapsActivity.this);
+                        checkLocationPermission();
+                        if(cFirebaseAuth.currentUser != null){
+                            final FindLocatinDialog findLocatinDialog = new FindLocatinDialog(MapsActivity.this );
+                            findLocatinDialog.here_btn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    LatLng latLng = new LatLng(mLastLocation.getLatitude() , mLastLocation.getLongitude());
+                                    mMap.addMarker(new MarkerOptions().position(latLng).title("here"));
+                                    findLocatinDialog.dialog.dismiss();
+                                }
+                            });
+                        }
+                        else if (cFirebaseAuth.currentUser == null){
+                            Toast.makeText(getApplicationContext(), "please login first ..", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                 }
