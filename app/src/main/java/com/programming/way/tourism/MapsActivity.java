@@ -137,8 +137,8 @@ public class MapsActivity extends HandlingMaps {
                 public void onBoomButtonClick(int index) {
                     if(index == 0){
 /////////////////////////////////////////////////////
-                        FindLocatinDialog dialog=new FindLocatinDialog();
-                        dialog.FindLocatinDialog(MapsActivity.this);
+                        FindLocatinDialog dialog=new FindLocatinDialog(MapsActivity.this);
+                        //dialog.FindLocatinDialog(MapsActivity.this);
                     }
                     else if (index == 3)
                     {
@@ -160,7 +160,8 @@ public class MapsActivity extends HandlingMaps {
                         Alerter.create(MapsActivity.this)
                                 .setTitle("Alert Title")
                                 .setText("Alert text...")
-                                .setBackgroundColor(R.color.md_green_100)
+                                .setIcon(R.drawable.alerter_ic_notifications)
+                                .setBackgroundColor(R.color.md_green_900)
                                 .show();
                     }else if(index == 2){
                         //new user login
