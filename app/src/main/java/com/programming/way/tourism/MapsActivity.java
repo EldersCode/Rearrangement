@@ -1,27 +1,13 @@
 package com.programming.way.tourism;
 
-import android.*;
-import android.Manifest;
-import android.content.Context;
+
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.hardware.Camera;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.net.Uri;
-import android.os.Build;
+
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.content.DialogInterface;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -38,8 +24,6 @@ import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
 import com.nightonke.boommenu.Piece.PiecePlaceEnum;
 
-import java.io.File;
-import java.io.IOException;
 
 public class MapsActivity extends HandlingMaps {
 
@@ -183,7 +167,7 @@ public class MapsActivity extends HandlingMaps {
                                              findLocatinDialog.dialog.dismiss();
                                          }catch (Exception e){
                                              Toast.makeText(getApplicationContext(), "Please open your GPS to get Location ..", Toast.LENGTH_SHORT).show();
-  
+
                                          }
                                     }
                                 });
