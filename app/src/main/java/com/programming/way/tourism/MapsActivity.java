@@ -165,12 +165,7 @@ private Random random = new Random();
 
                         new MorsyToast(MapsActivity.this,"events","set or search for events",random.nextInt(6));
 
-//                        Alerter.create(MapsActivity.this)
-//                                .setTitle("Alert Title")
-//                                .setText("Alert text...")
-////                                .setIcon(R.drawable.common_google_signin_btn_icon_light_normal_background)
-//                                .setBackgroundColor(R.color.md_green_900)
-//                                .show();
+
                     }else if(index == 2){
                         new MorsyToast(MapsActivity.this,"m4 3arf lesa","faydet om el buttom da a allah a3lam ",random.nextInt(6));
 
