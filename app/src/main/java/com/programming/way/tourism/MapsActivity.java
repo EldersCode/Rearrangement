@@ -1,5 +1,8 @@
 package com.programming.way.tourism;
+
+
 import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
@@ -7,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -20,21 +24,22 @@ import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
 import com.nightonke.boommenu.Piece.PiecePlaceEnum;
 
-import java.util.Random;
 
 public class MapsActivity extends HandlingMaps {
+
+
     private FirebaseAuth mAuth;
     LatLng latLng;
     int count = 0;
     final static int TAKE_PHOTO_CODE = 100;
     BottomSheetBehavior bottomSheetBehavior;
     BottomSheetBehavior bottomSheetBehavior1;
-    Button HomeButton;
+    Button TheButtonInTheFirstButtonSheet;
     View FabBtn;
     FloatingActionButton logoutFab;
     private ImageView cameraImg;
 
-public Random random=new Random();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,21 +88,22 @@ public Random random=new Random();
 
                 if (currentUser != null) {
                     mAuth.signOut();
-new  MorsyToast(MapsActivity.this,"loged out","You have signed out successfully ..",random.nextInt(6));
-                } else if (currentUser == null) {
-                    new  MorsyToast(MapsActivity.this,"alert","You haven't logged in ..",random.nextInt(6));
+                    Toast.makeText(MapsActivity.this, "You have signed out successfully ..", Toast.LENGTH_SHORT).show();
 
+                } else if (currentUser == null) {
+                    Toast.makeText(MapsActivity.this, "You haven't logged in ..", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
 
 
-        HomeButton = (Button) findViewById(R.id.HomeButton);
+        TheButtonInTheFirstButtonSheet = (Button) findViewById(R.id.HomeButton);
         // Buttom Sheet
         View bottomSheet1 = findViewById(R.id.bottom_sheet1);
         View bottomSheet = findViewById(R.id.bottom_sheet);
 
+        //FabBtn = findViewById(R.id.fab);
 
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
@@ -137,47 +143,43 @@ new  MorsyToast(MapsActivity.this,"loged out","You have signed out successfully 
                         checkLocationPermission();
                         if(cFirebaseAuth.currentUser != null) {
 
-                                final FindLocatinDialog findLocatinDialog = new FindLocatinDialog(MapsActivity.this);
-                                findLocatinDialog.here_btn.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                         try {
-                                             // Call your Alert message
-                                              latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-                                             mMap.addMarker(new MarkerOptions().position(latLng).title("here"));
-                                             findLocatinDialog.dialog.dismiss();
-                                         }catch (Exception e){
-//                                             Toast.makeText(getApplicationContext(), "Please open your GPS to get Location ..", Toast.LENGTH_SHORT).show();
-                                             new  MorsyToast(MapsActivity.this,"alert","Please open your GPS to get Location ..",random.nextInt(6));
+                            final FindLocatinDialog findLocatinDialog = new FindLocatinDialog(MapsActivity.this);
+                            findLocatinDialog.here_btn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    try {
+                                        // Call your Alert message
+                                        latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+                                        mMap.addMarker(new MarkerOptions().position(latLng).title("here"));
+                                        findLocatinDialog.dialog.dismiss();
+                                    }catch (Exception e){
+                                        Toast.makeText(getApplicationContext(), "Please open your GPS to get Location ..", Toast.LENGTH_SHORT).show();
 
-                                         }
-                                         if(mMap != null){
-                                             //buttomSheets activated here
-                                             bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_EXPANDED);
-
-
-                                             HomeButton.setOnClickListener(new View.OnClickListener() {
-                                                 @Override
-                                                 public void onClick(View view) {
-                                                     bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
-
-                                                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                                                     mMap.clear();
-                                                     mMap.addMarker(new MarkerOptions().position(latLng).title("here").icon(
-                                                             BitmapDescriptorFactory.fromResource(R.mipmap.house5)
-                                                     ));
-
-
-                                                 }
-                                             });
-                                         }
                                     }
-                                });
+                                    if(mMap != null){
+                                        bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+
+                                        TheButtonInTheFirstButtonSheet.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
+
+                                                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                                                mMap.clear();
+                                                mMap.addMarker(new MarkerOptions().position(latLng).title("here").icon(
+                                                        BitmapDescriptorFactory.fromResource(R.mipmap.house5)
+                                                ));
+
+                                            }
+                                        });
+                                    }
+                                }
+                            });
 
                         }
                         else if (cFirebaseAuth.currentUser == null){
-                            new  MorsyToast(MapsActivity.this,"alert","please login first ..",random.nextInt(6));
-
+                            Toast.makeText(getApplicationContext(), "please login first ..", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -205,8 +207,8 @@ new  MorsyToast(MapsActivity.this,"loged out","You have signed out successfully 
         }
 
         else{
-        finishAffinity();
-    }
+            finishAffinity();
+        }
     }
 
 }
