@@ -157,6 +157,7 @@ public class MapsActivity extends HandlingMaps {
                                         mMap.addMarker(new MarkerOptions().position(latLng).title("here"));
                                         findLocatinDialog.dialog.dismiss();
                                     }catch (Exception e){
+                                        findLocatinDialog.dialog.dismiss();
                                         Toast.makeText(getApplicationContext(), "Please open your GPS to get Location ..", Toast.LENGTH_SHORT).show();
 
                                     }
@@ -167,10 +168,11 @@ public class MapsActivity extends HandlingMaps {
                                         TheButtonInTheFirstButtonSheet.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
+                                                try {
                                                 bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
 
                                                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                                                try {
+
                                                     mMap.clear();
                                                     mMap.addMarker(new MarkerOptions().position(latLng).title("here").icon(
                                                             BitmapDescriptorFactory.fromResource(R.mipmap.house5)
