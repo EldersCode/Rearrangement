@@ -166,10 +166,7 @@ public class MapsActivity extends HandlingMaps {
                                                 bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
 
                                                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                                                mMap.clear();
-                                                mMap.addMarker(new MarkerOptions().position(latLng).title("here").icon(
-                                                        BitmapDescriptorFactory.fromResource(R.mipmap.house5)
-                                                ));
+                                                
 
                                             }
                                         });
