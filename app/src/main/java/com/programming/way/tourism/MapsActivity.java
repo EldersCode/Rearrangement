@@ -143,40 +143,39 @@ public class MapsActivity extends HandlingMaps {
                         checkLocationPermission();
                         if(cFirebaseAuth.currentUser != null) {
 
-                                final FindLocatinDialog findLocatinDialog = new FindLocatinDialog(MapsActivity.this);
-                                findLocatinDialog.here_btn.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                         try {
-                                             // Call your Alert message
-                                              latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-                                             mMap.addMarker(new MarkerOptions().position(latLng).title("here"));
-                                             findLocatinDialog.dialog.dismiss();
-                                         }catch (Exception e){
-                                             Toast.makeText(getApplicationContext(), "Please open your GPS to get Location ..", Toast.LENGTH_SHORT).show();
+                            final FindLocatinDialog findLocatinDialog = new FindLocatinDialog(MapsActivity.this);
+                            findLocatinDialog.here_btn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    try {
+                                        // Call your Alert message
+                                        latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+                                        mMap.addMarker(new MarkerOptions().position(latLng).title("here"));
+                                        findLocatinDialog.dialog.dismiss();
+                                    }catch (Exception e){
+                                        Toast.makeText(getApplicationContext(), "Please open your GPS to get Location ..", Toast.LENGTH_SHORT).show();
 
-                                         }
-                                         if(mMap != null){
-                                             bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_EXPANDED);
-
-
-                                             TheButtonInTheFirstButtonSheet.setOnClickListener(new View.OnClickListener() {
-                                                 @Override
-                                                 public void onClick(View view) {
-                                                     bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
-
-                                                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                                                     mMap.clear();
-                                                     mMap.addMarker(new MarkerOptions().position(latLng).title("here").icon(
-                                                             BitmapDescriptorFactory.fromResource(R.mipmap.house5)
-                                                     ));
-
-
-                                                 }
-                                             });
-                                         }
                                     }
-                                });
+                                    if(mMap != null){
+                                        bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+
+                                        TheButtonInTheFirstButtonSheet.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
+
+                                                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                                                mMap.clear();
+                                                mMap.addMarker(new MarkerOptions().position(latLng).title("here").icon(
+                                                        BitmapDescriptorFactory.fromResource(R.mipmap.house5)
+                                                ));
+
+                                            }
+                                        });
+                                    }
+                                }
+                            });
 
                         }
                         else if (cFirebaseAuth.currentUser == null){
@@ -208,8 +207,8 @@ public class MapsActivity extends HandlingMaps {
         }
 
         else{
-        finishAffinity();
-    }
+            finishAffinity();
+        }
     }
 
 }
