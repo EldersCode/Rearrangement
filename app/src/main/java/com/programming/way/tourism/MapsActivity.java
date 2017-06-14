@@ -1,13 +1,20 @@
 package com.programming.way.tourism;
 
-
 import android.content.Intent;
-
+import android.graphics.Color;
+import android.hardware.Camera;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.content.DialogInterface;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -23,13 +30,19 @@ import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
 import com.nightonke.boommenu.Piece.PiecePlaceEnum;
+import com.tapadoo.alerter.Alerter;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class MapsActivity extends HandlingMaps {
 
 
     private FirebaseAuth mAuth;
-    LatLng latLng;
     int count = 0;
     final static int TAKE_PHOTO_CODE = 100;
     BottomSheetBehavior bottomSheetBehavior;
@@ -40,6 +53,7 @@ public class MapsActivity extends HandlingMaps {
     private ImageView cameraImg;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +61,6 @@ public class MapsActivity extends HandlingMaps {
 
         onCreateHandle();
 //        Countries countriesN = new Countries();
-
-
 
         cameraImg = (ImageView) findViewById(R.id.camImg);
         cameraImg.setOnClickListener(new View.OnClickListener() {
@@ -60,10 +72,8 @@ public class MapsActivity extends HandlingMaps {
             }
         });
 
-
 // ...
         mAuth = FirebaseAuth.getInstance();
-
 
 
         try {
@@ -130,68 +140,42 @@ public class MapsActivity extends HandlingMaps {
                 public void onBoomButtonClick(int index) {
                     if (index == 0) {
 /////////////////////////////////////////////////////
-                        /*FindLocatinDialog dialog=new FindLocatinDialog();
-                        dialog.FindLocatinDialog(MapsActivity.this);*/
-                    } else if (index == 3) {
-
+                        FindLocatinDialog dialog = new FindLocatinDialog(MapsActivity.this);
+                        //dialog.FindLocatinDialog(MapsActivity.this);
                     } else if (index == 1) {
-                        startActivity(new Intent(getApplicationContext(), EventsActivity.class));
+                        Alerter.create(MapsActivity.this)
+                                .setTitle("Alert Title")
+                                .setText("Alert text...")
+                                .setIcon(R.drawable.alerter_ic_notifications)
+                                .setBackgroundColor(R.color.md_green_900)
+                                .show();
+                        SweetAlertDialog pDialog = new SweetAlertDialog(MapsActivity.this, SweetAlertDialog.SUCCESS_TYPE);
+                        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                        pDialog.setTitleText("Loading");
+                        pDialog.setCancelable(false);
+                        pDialog.show();
+
+
                     } else if (index == 2) {
                         //new user login
-                        final CFirebaseAuth cFirebaseAuth = new CFirebaseAuth();
+                        CFirebaseAuth cFirebaseAuth = new CFirebaseAuth();
                         cFirebaseAuth.CFirebaseAuth(MapsActivity.this);
-                        checkLocationPermission();
-                        if(cFirebaseAuth.currentUser != null) {
-
-                                final FindLocatinDialog findLocatinDialog = new FindLocatinDialog(MapsActivity.this);
-                                findLocatinDialog.here_btn.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                         try {
-                                             // Call your Alert message
-                                              latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-                                             mMap.addMarker(new MarkerOptions().position(latLng).title("here"));
-                                             findLocatinDialog.dialog.dismiss();
-                                         }catch (Exception e){
-                                             Toast.makeText(getApplicationContext(), "Please open your GPS to get Location ..", Toast.LENGTH_SHORT).show();
-
-                                         }
-                                         if(mMap != null){
-                                             bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    } else if (index == 3) {
+                        bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_EXPANDED);
 
 
-                                             TheButtonInTheFirstButtonSheet.setOnClickListener(new View.OnClickListener() {
-                                                 @Override
-                                                 public void onClick(View view) {
-                                                     bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
+                        TheButtonInTheFirstButtonSheet.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
+                                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                            }
+                        });
 
-                                                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                                                     mMap.clear();
-                                                     mMap.addMarker(new MarkerOptions().position(latLng).title("here").icon(
-                                                             BitmapDescriptorFactory.fromResource(R.mipmap.house5)
-                                                     ));
-
-
-                                                 }
-                                             });
-                                         }
-                                    }
-                                });
-
-                        }
-                        else if (cFirebaseAuth.currentUser == null){
-                            Toast.makeText(getApplicationContext(), "please login first ..", Toast.LENGTH_SHORT).show();
-                        }
                     }
 
                 }
-            })
-
-                    .normalImageRes(ImagesForTheMenu[i])
-                    .normalTextRes(TextForMenu[i])
-                    .subNormalTextRes(HintTextForMenu[i]);
-
-
+            }).normalImageRes(ImagesForTheMenu[i]).normalTextRes(TextForMenu[i]).subNormalTextRes(HintTextForMenu[i]);
             bmb.addBuilder(builder);
         }
 
@@ -201,15 +185,20 @@ public class MapsActivity extends HandlingMaps {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        if(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
-            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-        }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        // Check if user is signed in (non-null) and update UI accordingly.
+//         FirebaseAuth mAuth;
+//// ...
+//        mAuth = FirebaseAuth.getInstance();
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//
+//        if (currentUser != null){
+//
+//        }
+//
+//    }
 
-        else{
-        finishAffinity();
-    }
-    }
 
 }
