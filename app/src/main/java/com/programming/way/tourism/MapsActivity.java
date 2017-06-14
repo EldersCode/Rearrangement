@@ -1,11 +1,13 @@
 package com.programming.way.tourism;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -168,11 +170,26 @@ public class MapsActivity extends HandlingMaps {
                                                 bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
 
                                                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                                                mMap.clear();
-                                                mMap.addMarker(new MarkerOptions().position(latLng).title("here").icon(
-                                                        BitmapDescriptorFactory.fromResource(R.mipmap.house5)
-                                                ));
+                                                try {
+                                                    mMap.clear();
+                                                    mMap.addMarker(new MarkerOptions().position(latLng).title("here").icon(
+                                                            BitmapDescriptorFactory.fromResource(R.mipmap.house5)
+                                                    ));
+                                                }catch(Exception e){
+                                                    final AlertDialog.Builder alert = new AlertDialog.Builder(MapsActivity.this)
+                                                            .setMessage("Please enable your GPS and check the internet connection..");
+                                                    alert.setTitle("Information");
+                                                    alert.setIcon(R.mipmap.alarm);
+                                                    alert.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            alert.setCancelable(true);
+                                                        }
+                                                    });
+                                                    alert.create();
+                                                    alert.show();
 
+                                                }
                                             }
                                         });
                                     }
