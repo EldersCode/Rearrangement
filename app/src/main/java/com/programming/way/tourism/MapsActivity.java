@@ -8,13 +8,19 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
@@ -27,6 +33,26 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MapsActivity extends HandlingMaps {
 
+//////////////////submitBuildingInfo
+private EditText priceEditText;
+    private EditText ApartmentAreaEditText;
+    private EditText noOfBedRoomsEditText;
+    private EditText noOfBathRoomsEditText;
+    private Switch parkingLotsSwitch;
+    private Switch LivingRoomSwitch;
+    private Switch KitchenSwitch;
+    private Switch coolingSystemSwitch;
+    private Switch NegotiablePriceSwitch;
+    private LinearLayout petsLayout;
+    private Switch petsSwitch;
+    //private DatabaseReference firebaseDatabase;
+    private FirebaseDatabase database;
+    private ImageView cameraImg;
+    private Button locateFlat;
+    private int flatsNo =1;
+    private DatabaseReference houses;
+    ////////////////////////////////
+    String buildingType;
 
     private FirebaseAuth mAuth;
     LatLng latLng;
@@ -37,7 +63,6 @@ public class MapsActivity extends HandlingMaps {
     Button TheButtonInTheFirstButtonSheet;
     View FabBtn;
     FloatingActionButton logoutFab;
-    private ImageView cameraImg;
 
 
     @Override
@@ -48,6 +73,30 @@ public class MapsActivity extends HandlingMaps {
 
 
         onCreateHandle();
+        AlertDialogCustom dialogCustom ;
+
+/////////////////////////////
+        //declearing inistances
+        petsLayout = (LinearLayout) findViewById(R.id.switchOn_pets);
+        petsSwitch = (Switch) findViewById(R.id.petSwitch);
+        priceEditText = (EditText) findViewById(R.id.Price);
+        ApartmentAreaEditText = (EditText) findViewById(R.id.area);
+        noOfBedRoomsEditText = (EditText) findViewById(R.id.bedrooms);
+        noOfBathRoomsEditText = (EditText) findViewById(R.id.bathrooms);
+        parkingLotsSwitch=(Switch)findViewById(R.id.ParkingSwitch);
+        LivingRoomSwitch=(Switch)findViewById(R.id.livingRoomSwitch);
+        KitchenSwitch=(Switch)findViewById(R.id.kitchenSwitch);
+        coolingSystemSwitch=(Switch)findViewById(R.id.coolingSystemSwitch);
+        NegotiablePriceSwitch=(Switch)findViewById(R.id.negotiablePriceSwitch);
+        locateFlat = (Button) findViewById(R.id.locateFlat);
+
+        //buttom sheet home buttom
+        TheButtonInTheFirstButtonSheet = (Button) findViewById(R.id.HomeButton);
+
+        new SubmitBuildingInfo(buildingType,locateFlat,petsLayout,petsSwitch,priceEditText,ApartmentAreaEditText,noOfBedRoomsEditText
+        ,noOfBathRoomsEditText,parkingLotsSwitch,LivingRoomSwitch,KitchenSwitch,coolingSystemSwitch,NegotiablePriceSwitch);
+/////////////////////////////////
+
 //        Countries countriesN = new Countries();
 
 
@@ -100,7 +149,6 @@ public class MapsActivity extends HandlingMaps {
         });
 
 
-        TheButtonInTheFirstButtonSheet = (Button) findViewById(R.id.HomeButton);
         // Buttom Sheet
         View bottomSheet1 = findViewById(R.id.bottom_sheet1);
         View bottomSheet = findViewById(R.id.bottom_sheet);
@@ -135,7 +183,8 @@ public class MapsActivity extends HandlingMaps {
                         /*FindLocatinDialog dialog=new FindLocatinDialog();
                         dialog.FindLocatinDialog(MapsActivity.this);*/
                     } else if (index == 3) {
-                        new AlertDialogCustom(MapsActivity.this,SweetAlertDialog.CUSTOM_IMAGE_TYPE,"#7c4b94e1","Iam here","ok",R.mipmap.home);
+
+                          new AlertDialogCustom(MapsActivity.this,SweetAlertDialog.CUSTOM_IMAGE_TYPE,"#7c4b94e1","Iam here","ok",R.mipmap.home,0);
                     } else if (index == 1) {
                         startActivity(new Intent(getApplicationContext(), EventsActivity.class));
                     } else if (index == 2) {
@@ -167,6 +216,7 @@ public class MapsActivity extends HandlingMaps {
                                             @Override
                                             public void onClick(View view) {
                                                 try {
+                                                    buildingType="home";
                                                 bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
 
                                                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);

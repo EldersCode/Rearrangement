@@ -30,6 +30,7 @@
                 android:layout_height="wrap_content"
                 >
                 <Button
+                    android:tag="home"
                     android:id="@+id/HomeButton"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -37,6 +38,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/home"
                     android:layout_width="60dp"
                     android:layout_marginTop="10dp"
                     android:layout_height="60dp"
@@ -56,6 +58,7 @@
                 android:layout_height="wrap_content"
                 >
                 <Button
+                    android:tag="store"
                     android:id="@+id/StoreButton"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -63,6 +66,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/store"
                     android:layout_width="60dp"
                     android:layout_marginTop="10dp"
                     android:layout_height="60dp"
