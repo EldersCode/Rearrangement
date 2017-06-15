@@ -1,9 +1,6 @@
 package com.programming.way.tourism;
-
-
 import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
@@ -13,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -25,6 +21,8 @@ import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
 import com.nightonke.boommenu.Piece.PiecePlaceEnum;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class MapsActivity extends HandlingMaps {
@@ -137,7 +135,7 @@ public class MapsActivity extends HandlingMaps {
                         /*FindLocatinDialog dialog=new FindLocatinDialog();
                         dialog.FindLocatinDialog(MapsActivity.this);*/
                     } else if (index == 3) {
-
+                        new AlertDialogCustom(MapsActivity.this,SweetAlertDialog.CUSTOM_IMAGE_TYPE,"#7c4b94e1","Iam here","ok",R.mipmap.home);
                     } else if (index == 1) {
                         startActivity(new Intent(getApplicationContext(), EventsActivity.class));
                     } else if (index == 2) {
