@@ -9,7 +9,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * Created by noob on 6/15/2017.
  */
 
-public class AlertDialogCustom {
+public class AlertDialogCustom  {
     public AlertDialogCustom(Context context, int sweetAlertDialog, String color,String Title,String ConfirmText,int BkIcon) {
 
         SweetAlertDialog pDialog = new SweetAlertDialog(context, sweetAlertDialog);
@@ -26,6 +26,5 @@ public class AlertDialogCustom {
         });
         pDialog.show();
     }
-
 
 }
