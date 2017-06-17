@@ -51,6 +51,7 @@ private EditText priceEditText;
     private Button locateFlat;
     private int flatsNo =1;
     private DatabaseReference houses;
+    private String priceOnMarker;
     ////////////////////////////////
     String buildingType;
 
@@ -94,8 +95,6 @@ private EditText priceEditText;
         //buttom sheet home buttom
         TheButtonInTheFirstButtonSheet = (Button) findViewById(R.id.HomeButton);
 
-        new SubmitBuildingInfo(buildingType,locateFlat,petsLayout,petsSwitch,priceEditText,ApartmentAreaEditText,noOfBedRoomsEditText
-        ,noOfBathRoomsEditText,parkingLotsSwitch,LivingRoomSwitch,KitchenSwitch,coolingSystemSwitch,NegotiablePriceSwitch);
 /////////////////////////////////
 
 //        Countries countriesN = new Countries();
@@ -201,8 +200,12 @@ private EditText priceEditText;
                                 public void onClick(View v) {
                                     try {
                                         // Call your Alert message
+//                                        latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+//                                        mMap.addMarker(new MarkerOptions().position(latLng).title(""));
                                         latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-                                        mMap.addMarker(new MarkerOptions().position(latLng).title("here"));
+                                        new SubmitBuildingInfo(latLng,mMap,buildingType,locateFlat,petsLayout,petsSwitch,priceEditText,ApartmentAreaEditText,noOfBedRoomsEditText
+                                                ,noOfBathRoomsEditText,parkingLotsSwitch,LivingRoomSwitch,KitchenSwitch,coolingSystemSwitch,NegotiablePriceSwitch);
+
                                         flag = true;
                                         findLocatinDialog.dialog.dismiss();
                                     }catch (Exception e){
@@ -238,9 +241,9 @@ private EditText priceEditText;
                                                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
                                                     mMap.clear();
-                                                    mMap.addMarker(new MarkerOptions().position(latLng).title("here").icon(
-                                                            BitmapDescriptorFactory.fromResource(R.mipmap.house5)
-                                                    ));
+//                                                    mMap.addMarker(new MarkerOptions().position(latLng).icon(
+//                                                            BitmapDescriptorFactory.fromResource(R.mipmap.house5)
+//                                                    ));
 
                                             }
                                         });

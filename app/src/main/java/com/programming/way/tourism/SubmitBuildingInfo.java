@@ -12,6 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,7 +40,7 @@ public class SubmitBuildingInfo extends Activity {
 
     }
 
-    public SubmitBuildingInfo(String building,Button locateFlat,final LinearLayout petsLayout, Switch petsSwitch, final EditText priceEditText, final EditText apartmentAreaEditText, final EditText noOfBedRoomsEditText, final EditText noOfBathRoomsEditText, final Switch parkingLotsSwitch, final Switch livingRoomSwitch, final Switch kitchenSwitch, final Switch coolingSystemSwitch, final Switch negotiablePriceSwitch) {
+    public SubmitBuildingInfo(final LatLng latLng, final GoogleMap mMap, final String building, Button locateFlat, final LinearLayout petsLayout, Switch petsSwitch, final EditText priceEditText, final EditText apartmentAreaEditText, final EditText noOfBedRoomsEditText, final EditText noOfBathRoomsEditText, final Switch parkingLotsSwitch, final Switch livingRoomSwitch, final Switch kitchenSwitch, final Switch coolingSystemSwitch, final Switch negotiablePriceSwitch) {
         petsLayout.setVisibility(View.GONE);
 
         petsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -93,7 +97,11 @@ public class SubmitBuildingInfo extends Activity {
 //                Toast.makeText(getApplicationContext(),"sending",Toast.LENGTH_LONG).show();
                 regions.child("contry/" + "city/" + flatsNo).setValue("location");
 //                Toast.makeText(getApplicationContext() , "Data Sent Successfully .." , Toast.LENGTH_SHORT).show();
+                int I=0;
+                mMap.addMarker(new MarkerOptions().position(latLng).title(priceEditText.getText().toString()).
+                        icon(BitmapDescriptorFactory.fromResource(R.mipmap.house5)));
 
+                String PriceOnMarker=priceEditText.getText().toString();
             }
         });
 
