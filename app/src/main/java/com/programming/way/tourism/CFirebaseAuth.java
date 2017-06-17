@@ -144,9 +144,7 @@ public class CFirebaseAuth extends Activity {
             mAuth= FirebaseAuth.getInstance();
             currentUser = mAuth.getCurrentUser();
             if(currentUser.isEmailVerified()){
-
-                AfterLogin(context);
-
+                
             }else if (!currentUser.isEmailVerified()){
                 Toast.makeText(context, "Please verify your email first !", Toast.LENGTH_SHORT).show();
             }
@@ -176,7 +174,6 @@ public class CFirebaseAuth extends Activity {
                                     dialog.dismiss();
                                     Toast.makeText(context, "Login Succeeded", Toast.LENGTH_SHORT).show();
                                     //here we go to the next action
-                                    AfterLogin(context);
                                 }else{
                                     progressD.dismiss();
                                     Toast.makeText(context, "Please Verify your email first !", Toast.LENGTH_SHORT).show();
@@ -257,10 +254,6 @@ public class CFirebaseAuth extends Activity {
 //        }
     }
 
-    public void AfterLogin(Context context){
-
-        Toast.makeText(context, "a7la mesa 3leek enta tmam", Toast.LENGTH_SHORT).show();
-    }
 
     public void VerifyEmail(FirebaseUser user , final Context context){
         user.sendEmailVerification()
