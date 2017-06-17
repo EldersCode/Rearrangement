@@ -54,6 +54,7 @@ private EditText priceEditText;
     ////////////////////////////////
     String buildingType;
 
+    boolean flag = true;
     private FirebaseAuth mAuth;
     LatLng latLng;
     int count = 0;
@@ -184,7 +185,7 @@ private EditText priceEditText;
                         dialog.FindLocatinDialog(MapsActivity.this);*/
                     } else if (index == 3) {
 
-                          new AlertDialogCustom(MapsActivity.this,SweetAlertDialog.CUSTOM_IMAGE_TYPE,"#7c4b94e1","Iam here","ok",R.mipmap.home,0);
+                          new AlertDialogCustom(MapsActivity.this,SweetAlertDialog.CUSTOM_IMAGE_TYPE,"#7c4b94e1","Iam here",null,"ok",R.mipmap.home,"CloseAlertdialog");
                     } else if (index == 1) {
                         startActivity(new Intent(getApplicationContext(), EventsActivity.class));
                     } else if (index == 2) {
@@ -202,20 +203,35 @@ private EditText priceEditText;
                                         // Call your Alert message
                                         latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
                                         mMap.addMarker(new MarkerOptions().position(latLng).title("here"));
+                                        flag = true;
                                         findLocatinDialog.dialog.dismiss();
                                     }catch (Exception e){
                                         findLocatinDialog.dialog.dismiss();
-                                        Toast.makeText(getApplicationContext(), "Please open your GPS to get Location ..", Toast.LENGTH_SHORT).show();
+/*                                        final AlertDialog.Builder alert = new AlertDialog.Builder(MapsActivity.this)
+                                                .setMessage("Please enable your GPS and check the internet connection..");
+                                        alert.setTitle("Information");
+                                        alert.setIcon(R.mipmap.alarm);
+                                        alert.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                alert.setCancelable(true);
+                                            }
+                                        });
+                                        alert.create();
+                                        alert.show();*/
+                                        new AlertDialogCustom(MapsActivity.this,SweetAlertDialog.CUSTOM_IMAGE_TYPE,"#7c4b94e1","The Gps Is Closed","Please enable your GPS..","ok",R.mipmap.alarm,"CloseAlertdialog");
+                                        flag = false;
 
                                     }
-                                    if(mMap != null){
+                                    if(flag){
+
                                         bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_EXPANDED);
 
 
                                         TheButtonInTheFirstButtonSheet.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-                                                try {
+
                                                     buildingType="home";
                                                 bottomSheetBehavior1.setState(BottomSheetBehavior.STATE_HIDDEN);
 
@@ -225,21 +241,7 @@ private EditText priceEditText;
                                                     mMap.addMarker(new MarkerOptions().position(latLng).title("here").icon(
                                                             BitmapDescriptorFactory.fromResource(R.mipmap.house5)
                                                     ));
-                                                }catch(Exception e){
-                                                    final AlertDialog.Builder alert = new AlertDialog.Builder(MapsActivity.this)
-                                                            .setMessage("Please enable your GPS and check the internet connection..");
-                                                    alert.setTitle("Information");
-                                                    alert.setIcon(R.mipmap.alarm);
-                                                    alert.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
-                                                            alert.setCancelable(true);
-                                                        }
-                                                    });
-                                                    alert.create();
-                                                    alert.show();
 
-                                                }
                                             }
                                         });
                                     }

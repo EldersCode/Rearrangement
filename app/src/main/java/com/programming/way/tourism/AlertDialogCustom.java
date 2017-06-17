@@ -11,18 +11,20 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class AlertDialogCustom  {
     int Action ;
-    public AlertDialogCustom(Context context, int sweetAlertDialog, String color, String Title, String ConfirmText, int BkIcon, final int Action) {
+    public AlertDialogCustom(Context context, int sweetAlertDialog, String color, String Title, String ContentText,String ConfirmText, int BkIcon, final String Action) {
 
         SweetAlertDialog pDialog = new SweetAlertDialog(context, sweetAlertDialog);
         pDialog.getProgressHelper().setBarColor(Color.parseColor(color));
         pDialog.setTitleText(Title);
+        pDialog.setContentText(ContentText);
         pDialog.setConfirmText(ConfirmText);
+
         pDialog.setCancelable(false);
         pDialog.setCustomImage(BkIcon);
         pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
             @Override
             public void onClick(SweetAlertDialog sweetAlertDialog) {
-                if (Action == 0) {
+                if (Action == "CloseAlertdialog") {
                     CloseAlertdialog(sweetAlertDialog);
                 }
             }
