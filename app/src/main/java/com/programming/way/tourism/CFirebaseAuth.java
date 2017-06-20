@@ -9,11 +9,14 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,6 +45,7 @@ public class CFirebaseAuth extends Activity {
     String email = null;
     String pass = null;
     private TextView forgetPass;
+    private CheckBox showPass;
     // Check if user is signed in (non-null) and update UI accordingly.
 
     private FirebaseAuth mAuth= FirebaseAuth.getInstance();
@@ -64,6 +68,22 @@ public class CFirebaseAuth extends Activity {
             Button register_btn = (Button) view.findViewById(R.id.Register);
             Button registerLoginBtn = (Button)view.findViewById(R.id.RegisterR);
             forgetPass = (TextView)view.findViewById(R.id.forgetPass_textView);
+            showPass = (CheckBox)view.findViewById(R.id.showPassCheck);
+            showPass.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                    EditText passwordLogin = (EditText) view.findViewById(R.id.Password);
+
+                    if(showPass.isChecked()){
+                        passwordLogin.setTransformationMethod(null);
+                    }
+                    else if(!showPass.isChecked()){
+                        passwordLogin.setTransformationMethod(new PasswordTransformationMethod());
+                    }
+
+                }
+            });
             forgetPass.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

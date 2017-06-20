@@ -36,4 +36,5 @@
     <string name="iamIn">i am in the location</string>
     <string name="iamOut">this\'s not my estate location</string>
     <string name="forgetPassword">Forget Password ?!</string>
+    <string name="show_password">Show Password</string>
 </resources>
