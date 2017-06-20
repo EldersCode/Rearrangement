@@ -40,6 +40,17 @@
             android:layout_centerVertical="true"
             android:layout_alignStart="@+id/Username" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/forgetPassword"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:textColor="#e62b47"
+            android:id="@+id/forgetPass_textView"
+            />
+
         <Button
             android:id="@+id/button"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"

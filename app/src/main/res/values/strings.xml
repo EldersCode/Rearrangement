@@ -35,4 +35,5 @@
     <string name="registerLogin_btn"><![CDATA[Register & Login]]></string>
     <string name="iamIn">i am in the location</string>
     <string name="iamOut">this\'s not my estate location</string>
+    <string name="forgetPassword">Forget Password ?!</string>
 </resources>
