@@ -2,6 +2,7 @@ package com.programming.way.tourism;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -42,7 +43,9 @@ public class SubmitBuildingInfo extends Activity {
 
     public SubmitBuildingInfo(final LatLng latLng, final GoogleMap mMap, final String building, Button locateFlat, final LinearLayout petsLayout, Switch petsSwitch, final EditText priceEditText, final EditText apartmentAreaEditText, final EditText noOfBedRoomsEditText, final EditText noOfBathRoomsEditText, final Switch parkingLotsSwitch, final Switch livingRoomSwitch, final Switch kitchenSwitch, final Switch coolingSystemSwitch, final Switch negotiablePriceSwitch) {
         petsLayout.setVisibility(View.GONE);
-
+//Button rentBtn=(Button) findViewById(R.id.forRentBtn);
+//Button saleBtn=(Button) findViewById(R.id.forSaleBtn);
+//        rentBtn.setEnabled(false);
         petsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -97,7 +100,6 @@ public class SubmitBuildingInfo extends Activity {
 //                Toast.makeText(getApplicationContext(),"sending",Toast.LENGTH_LONG).show();
                 regions.child("contry/" + "city/" + flatsNo).setValue("location");
 //                Toast.makeText(getApplicationContext() , "Data Sent Successfully .." , Toast.LENGTH_SHORT).show();
-                int I=0;
                 mMap.addMarker(new MarkerOptions().position(latLng).title(priceEditText.getText().toString()).
                         icon(BitmapDescriptorFactory.fromResource(R.mipmap.house5)));
 
@@ -105,6 +107,35 @@ public class SubmitBuildingInfo extends Activity {
             }
         });
 
+    }
+
+    public void rentOrSale(final Button rentBtn, final Button saleBtn){
+        rentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rentBtn.setEnabled(false);
+                saleBtn.setEnabled(true);
+//
+                rentBtn.setTextColor(Integer.parseInt(String.valueOf(R.color.md_white_1000)));
+                saleBtn.setTextColor(Integer.parseInt(String.valueOf(R.color.md_green_200)));
+                saleBtn.setBackgroundColor(1);
+                rentBtn.setBackgroundColor(Integer.parseInt(String.valueOf(R.color.md_green_200)));
+//rentBtn.setBackgroundColor();
+            }
+        });
+        saleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saleBtn.setEnabled(false);
+                rentBtn.setEnabled(true);
+//
+                saleBtn.setTextColor(Integer.parseInt(String.valueOf(R.color.md_white_1000)));
+                rentBtn.setTextColor(Integer.parseInt(String.valueOf(R.color.md_green_200)));
+                rentBtn.setBackgroundColor(1);
+                saleBtn.setBackgroundColor(Integer.parseInt(String.valueOf(R.color.md_green_200)));
+
+            }
+        });
     }
 
     @Override

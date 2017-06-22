@@ -1,6 +1,7 @@
 package com.programming.way.tourism;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
@@ -91,7 +92,14 @@ private EditText priceEditText;
         coolingSystemSwitch=(Switch)findViewById(R.id.coolingSystemSwitch);
         NegotiablePriceSwitch=(Switch)findViewById(R.id.negotiablePriceSwitch);
         locateFlat = (Button) findViewById(R.id.locateFlat);
-
+////////////////////rent or sale
+        Button rentBtn=(Button) findViewById(R.id.forRentBtn);
+        Button saleBtn=(Button) findViewById(R.id.forSaleBtn);
+        SubmitBuildingInfo submitBuildingInfo=new SubmitBuildingInfo();
+        submitBuildingInfo.rentOrSale(rentBtn,saleBtn);
+//        rentBtn.setEnabled(false);
+//        rentBtn.setBackgroundColor(Color.DKGRAY);
+        ///////////////////////
         //buttom sheet home buttom
         TheButtonInTheFirstButtonSheet = (Button) findViewById(R.id.HomeButton);
 
