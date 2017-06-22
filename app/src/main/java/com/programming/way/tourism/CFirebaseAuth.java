@@ -5,16 +5,21 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.dynamic.LifecycleDelegate;
@@ -39,7 +44,8 @@ public class CFirebaseAuth extends Activity {
     ProgressDialog progressD ;
     String email = null;
     String pass = null;
-
+    private TextView forgetPass;
+    private CheckBox showPass;
     // Check if user is signed in (non-null) and update UI accordingly.
 
     private FirebaseAuth mAuth= FirebaseAuth.getInstance();
@@ -61,6 +67,55 @@ public class CFirebaseAuth extends Activity {
             final Button login =(Button)view.findViewById(R.id.button);
             Button register_btn = (Button) view.findViewById(R.id.Register);
             Button registerLoginBtn = (Button)view.findViewById(R.id.RegisterR);
+            forgetPass = (TextView)view.findViewById(R.id.forgetPass_textView);
+            showPass = (CheckBox)view.findViewById(R.id.showPassCheck);
+            showPass.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                    EditText passwordLogin = (EditText) view.findViewById(R.id.Password);
+
+                    if(showPass.isChecked()){
+                        passwordLogin.setTransformationMethod(null);
+                    }
+                    else if(!showPass.isChecked()){
+                        passwordLogin.setTransformationMethod(new PasswordTransformationMethod());
+                    }
+
+                }
+            });
+            forgetPass.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final EditText emailLogin = (EditText) view.findViewById(R.id.Username);
+
+                    if(emailLogin.getText().length() > 0) {
+                        final AlertDialog.Builder alert = new AlertDialog.Builder(context)
+                                .setTitle("Notification")
+                                .setMessage("Reset password to this email ?");
+                        alert.setCancelable(false);
+                        alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String mail = emailLogin.getText().toString();
+                                ForgetPass(context , mail);
+                                Toast.makeText(context, "Your have received an email check it out !", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        alert.setNegativeButton("no", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                             alert.setCancelable(true);
+                            }
+                        });
+                        alert.create().show();
+                    }
+                    else{
+                        new MorsyToast(context,"Error" , "Please enter your email first !" , Color.RED);
+                        Toast.makeText(context, "Please enter your email first !", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
             register_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -144,13 +199,25 @@ public class CFirebaseAuth extends Activity {
             mAuth= FirebaseAuth.getInstance();
             currentUser = mAuth.getCurrentUser();
             if(currentUser.isEmailVerified()){
-                
+
             }else if (!currentUser.isEmailVerified()){
                 Toast.makeText(context, "Please verify your email first !", Toast.LENGTH_SHORT).show();
             }
 
         }
 
+    }
+
+    private void ForgetPass(final Context context , String Email) {
+        mAuth.sendPasswordResetEmail(Email)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            new MorsyToast(context , "Notification" , "you have received an email .. check it" , Color.BLUE);
+                        }
+                    }
+                });
     }
 
     public void Login(final Context context , String email , String password){

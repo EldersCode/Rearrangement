@@ -40,13 +40,35 @@
             android:layout_centerVertical="true"
             android:layout_alignStart="@+id/Username" />
 
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/showPassCheck"
+            android:text="@string/show_password"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/forgetPassword"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:textColor="#e62b47"
+            android:id="@+id/forgetPass_textView"
+            />
+
         <Button
             android:id="@+id/button"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="304dp"
             android:layout_height="41dp"
             android:layout_gravity="center"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="40dp"
             android:background="#7c4b94e1"
             android:gravity="center"
             android:text="@string/login_btn"
