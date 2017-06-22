@@ -43,6 +43,7 @@ public class SubmitBuildingInfo extends Activity {
 
     public SubmitBuildingInfo(final LatLng latLng, final GoogleMap mMap, final String building, Button locateFlat, final LinearLayout petsLayout, Switch petsSwitch, final EditText priceEditText, final EditText apartmentAreaEditText, final EditText noOfBedRoomsEditText, final EditText noOfBathRoomsEditText, final Switch parkingLotsSwitch, final Switch livingRoomSwitch, final Switch kitchenSwitch, final Switch coolingSystemSwitch, final Switch negotiablePriceSwitch) {
         petsLayout.setVisibility(View.GONE);
+//images();
 //Button rentBtn=(Button) findViewById(R.id.forRentBtn);
 //Button saleBtn=(Button) findViewById(R.id.forSaleBtn);
 //        rentBtn.setEnabled(false);
@@ -136,8 +137,12 @@ public class SubmitBuildingInfo extends Activity {
 
             }
         });
-    }
 
+    }
+//public void images(){
+//    ImageSliderImplementdMethods imageSliderImplementdMethods=new ImageSliderImplementdMethods();
+////    imageSliderImplementdMethods.onPageScrolled();
+//}
     @Override
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), MapsActivity.class));
